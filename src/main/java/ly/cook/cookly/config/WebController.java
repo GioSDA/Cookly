@@ -6,24 +6,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Controller
 @EnableWebMvc
-public class WebController extends WebMvcConfigurerAdapter {
+public class WebController implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/homepage").setViewName("homepage");
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody String login() {
-        return "login";
+    @RequestMapping(value = "/homepage")
+    public String homepage() {
+        return "homepage";
     }
 
 
