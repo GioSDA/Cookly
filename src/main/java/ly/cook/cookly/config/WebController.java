@@ -15,14 +15,25 @@ public class WebController implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/homepage").setViewName("homepage");
+        registry.addViewController("/").setViewName("homepage");
+        registry.addViewController("/user").setViewName("user");
+        registry.addViewController("/admin").setViewName("admin");
     }
 
-    @RequestMapping(value = "/homepage")
+    @RequestMapping(value = "/")
     public String homepage() {
         return "homepage";
     }
 
+    @RequestMapping(value = "/user")
+    public String user() {
+        return "user";
+    }
+
+    @RequestMapping(value = "/admin")
+    public String admin() {
+        return "admin";
+    }
 
     @Bean
     public ViewResolver getViewResolver() {
