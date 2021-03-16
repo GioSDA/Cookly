@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.4.RELEASE</version>
+		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ly.cook</groupId>
@@ -15,6 +15,7 @@
 	<description> Cooking website that allows you to search by a variety of options. </description>
 	<properties>
 		<java.version>11</java.version>
+		<spring.framework.version>5.3.4</spring.framework.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -42,6 +43,11 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.12.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
