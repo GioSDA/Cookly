@@ -15,7 +15,6 @@
 	<description> Cooking website that allows you to search by a variety of options. </description>
 	<properties>
 		<java.version>11</java.version>
-		<spring.framework.version>5.3.4</spring.framework.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -45,9 +44,13 @@
 			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			<version>3.12.8</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

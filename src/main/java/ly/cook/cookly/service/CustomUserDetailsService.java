@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userRepository.save(user);
     }
 
@@ -53,6 +53,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
+
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();

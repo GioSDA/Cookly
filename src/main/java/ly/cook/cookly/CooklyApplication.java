@@ -1,13 +1,17 @@
 package ly.cook.cookly;
 
+import ly.cook.cookly.repository.RoleRepository;
+import ly.cook.cookly.repository.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-
-@SpringBootApplication(exclude = MongoAutoConfiguration.class)
+@SpringBootApplication
+@EnableMongoRepositories(basePackageClasses = {
+		UserRepository.class, RoleRepository.class
+})
 public class CooklyApplication {
 
 	private static final Log log = LogFactory.getLog(CooklyApplication.class);
