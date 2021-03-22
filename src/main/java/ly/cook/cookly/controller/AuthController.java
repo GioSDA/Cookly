@@ -73,4 +73,11 @@ public class AuthController {
         return mav;
     }
 
+    @RequestMapping(value = {"/hello"}, method = RequestMethod.GET)
+    public ModelAndView hello() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("hello");
+        return mav;
+    }
+
 }
