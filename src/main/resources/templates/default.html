@@ -23,7 +23,7 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ms-auto">
             <li class="nav-item" th:if="${#authorization.expression('!isAuthenticated()')}">
                 <form method="GET" th:action="@{/login}">
                     <button type="submit" class="btn btn-primary">Log In</button>
@@ -33,10 +33,7 @@
                 <form method="POST" th:action="@{/logout}">
                     <button type="submit" class="btn btn-primary">Log Out</button>
                 </form>
-            </li>
-                
-            </form>
-            </li>
+            </li>     
         </ul>
     </div>
 </nav>
