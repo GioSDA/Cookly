@@ -13,6 +13,18 @@ body {
   background-color: #f5f5f5;
 }
 
+.navbar {
+  display: flex;
+}
+
+.nav-startleft {
+  margin-left: 2%;
+}
+
+.nav-startright {
+  margin-right: 2%;
+}
+
 .form-signin {
   width: 100%;
   max-width: 330px;
