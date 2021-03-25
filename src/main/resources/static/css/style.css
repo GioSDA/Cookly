@@ -27,9 +27,9 @@ body {
 
 .home-carousel {
   position: absolute;
-  top: 0px;
+  top: 56px;
   left: 0;
-  height: 100%
+  height: calc(100% - 56px)
 }
 
 .form-signin {
