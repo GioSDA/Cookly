@@ -29,7 +29,17 @@ body {
   position: absolute;
   top: 56px;
   left: 0;
-  height: calc(100% - 56px)
+  height: calc(100% - 56px);
+  text-align: center;
+}
+
+.cookly-home-text {
+  position: absolute;
+  z-index: 20;
+  color:white;
+  text-shadow: 0 1px 2px black;
+  left: 50%;
+  top: 20%;
 }
 
 .form-signin {
