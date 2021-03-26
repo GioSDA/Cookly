@@ -5,23 +5,32 @@
 <head>
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Default</title>
     <meta name="description" content=""/>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vuex"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-    <script src="js/app.js"></script>
+    <meta charset="UTF-8">
 
+    <script src="https://unpkg.com/vuex"></script>
+    
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-    <link href="css/style.css">
+    <link href="/css/style.css">
 </head>
 
-<body>
-<div th:if="${#authorization.expression('isAuthenticated()')} == null"> Hello </div>
-
-<div class="container", id="container">
-    <div layout:fragment="content"></div>
-</div>
-
-</body>
+    <body>
+        <h1>Hello</h1>
+        <div id="app">
+        <v-app>
+            <v-main>
+                <div layout:fragment="content"></div>
+            </v-main>
+        </v-app>
+        </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+        <script>
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+        })
+        </script>
+    </body>
 </html>
