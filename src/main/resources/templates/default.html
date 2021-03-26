@@ -9,16 +9,17 @@
     <script src="https://unpkg.com/vuex"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="js/app.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="css/style.css">
 </head>
 
 <body>
 <div th:if="${#authorization.expression('isAuthenticated()')} == null"> Hello </div>
 
-<div class="container">
+<div class="container", id="container">
     <div layout:fragment="content"></div>
 </div>
 

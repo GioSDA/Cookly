@@ -10,7 +10,7 @@
 <body class="text-center">
 <div layout:fragment="content">
     <form class="form-signin" th:action="@{/login}" method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1>Please sign in</h1>
         <div th:if="${param.error}">
             Invalid email and password.
         </div>
