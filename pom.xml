@@ -14,7 +14,7 @@
 	<name>Cookly</name>
 	<description> Cooking website that allows you to search by a variety of options. </description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
