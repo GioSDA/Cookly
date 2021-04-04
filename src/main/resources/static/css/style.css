@@ -17,6 +17,7 @@ body {
   font-size:450%;
   text-shadow:2px 2px black;
   z-index: 1000000;
+  white-space: nowrap;
 }
 
 .homesubtext {
@@ -27,6 +28,7 @@ body {
   font-size:200%;
   text-shadow:2px 2px black;
   z-index: 1000000;
+  white-space: nowrap;
 }
 
 .form-signin {
