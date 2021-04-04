@@ -4,6 +4,31 @@ body {
   background-color: slategray;
 }
 
+.homeCarousel {
+  margin-top: 0;
+  z-index: 0;
+}
+
+.hometext {
+  position:absolute;
+  margin-top: 15%;
+  margin-left: 20%;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:500%;
+  text-shadow:2px 2px black;
+  z-index: 1000000;
+}
+
+.homesubtext {
+  position:absolute;
+  margin-top: 25%;
+  margin-left: 20%;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:200%;
+  text-shadow:2px 2px black;
+  z-index: 1000000;
+}
+
 .form-signin {
   width: 100%;
   max-width: 330px;
