@@ -10,7 +10,7 @@ body {
 }
 
 .hometext {
-  position:fixed;
+  position:absolute;
   margin-top: 15%;
   margin-left: 20%;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -21,7 +21,7 @@ body {
 }
 
 .homesubtext {
-  position:fixed;
+  position:absolute;
   margin-top: 25%;
   margin-left: 20%;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
