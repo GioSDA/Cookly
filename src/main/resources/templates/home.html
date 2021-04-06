@@ -6,9 +6,9 @@
       layout:decorate="default">
 <head>
     <title>Cookly</title>
-    <link rel="preload" as="image" href="images/chef1.jpg">
-    <link rel="preload" as="image" href="images/chef2.jpg">
-    <link rel="preload" as="image" href="images/chef3.jpg">
+    <link rel="preload" as="image" href="images/chef1s.jpg">
+    <link rel="preload" as="image" href="images/chef2s.jpg">
+    <link rel="preload" as="image" href="images/chef3s.jpg">
 </head>
 <body>
   <div layout:fragment="content">
@@ -19,8 +19,10 @@
         v-for="(item,i) in chefCarousel"
         :key="i"
         :src="item.src"
+        :lazy-src="item.lazy"
       ></v-carousel-item>
     </v-carousel>
+    <v-img></v-img>
   </div>
 </body>
 </html>
