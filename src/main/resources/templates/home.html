@@ -6,24 +6,18 @@
       layout:decorate="default">
 <head>
     <title>Cookly</title>
-    
-    <link rel="preload" as="image" href="images/chef1s.jpg">
-    <link rel="preload" as="image" href="images/chef4s.jpg">
     <link rel="preload" as="image" href="images/chef3s.jpg">
 </head>
 <body>
   <div layout:fragment="content">
-    <v-carousel class="homeCarousel" cycle height="1000" hide-delimiters :show-arrows="false">
+    <v-img 
+      lazy-src="images/chef3s.jpg"
+      src="/images/chef3.jpg"
+      height="1000"
+    >
       <span class="hometext">Welcome to Cookly™.</span>
       <span class="homesubtext">The smartest and fastest cooking website.</span>
-      <v-carousel-item
-        v-for="(item,i) in chefCarousel"
-        :key="i"
-        :src="item.src"
-        :lazy-src="item.lazy"
-      ></v-carousel-item>
-    </v-carousel>
-    <v-img></v-img>
+    </v-img>
   </div>
 </body>
 </html>
