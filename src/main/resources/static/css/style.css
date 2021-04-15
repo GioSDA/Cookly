@@ -3,9 +3,21 @@ body {
   height: 100%;
 }
 
-.homeCarousel {
-  margin-top: 0;
-  z-index: 0;
+.navbar {
+  width:100%;
+  height:7%;
+  background-color: darkslateblue;
+  z-index:1000;
+  position: fixed;
+  box-shadow: 2px 2px 3px black;
+}
+
+.cooklyhome {
+  margin-left: 10%;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:200%;
+  color:blue;
+  text-shadow: 2px 2px black;
 }
 
 .hometext {

@@ -10,6 +10,13 @@
 </head>
 <body>
   <div layout:fragment="content">
+    <v-item-group class="navbar">
+      <v-item class="cooklyhome">
+          <form method="GET" th:action="@{/}">
+            <button type="submit" class="btn btn-primary">Cookly</button>
+        </form>
+      </v-item>
+    </v-item-group>
     <v-img 
       lazy-src="images/chef3s.jpg"
       src="/images/chef3.jpg"
