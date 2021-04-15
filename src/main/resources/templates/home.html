@@ -10,18 +10,29 @@
 </head>
 <body>
   <div layout:fragment="content">
-    <v-item-group class="navbar">
-      <v-item class="cooklyhome">
-          <form method="GET" th:action="@{/}">
-            <button type="submit" class="btn btn-primary">Cookly</button>
-        </form>
-      </v-item>
-    </v-item-group>
-    <v-img 
-      lazy-src="images/chef3s.jpg"
-      src="/images/chef3.jpg"
-      height="1000"
-    >
+      <v-toolbar>
+    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title>
+        <form method="GET" th:action="@{/}">
+          <button type="submit" class="btn btn-primary">Cookly</button>
+      </form>
+      </v-toolbar-title>
+
+      <v-spacer></v-spacer> 
+
+      <v-text-field
+        hide-details
+        prepend-icon="mdi-magnify"
+        single-line
+    ></v-text-field>
+
+    </v-toolbar>
+      <v-img 
+        lazy-src="images/chef3s.jpg"
+        src="/images/chef3.jpg"
+        height="1000"
+      >
       <span class="hometext">Welcome to Cookly™.</span>
       <span class="homesubtext">The smartest and fastest cooking website.</span>
     </v-img>
