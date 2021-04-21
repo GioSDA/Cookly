@@ -21,11 +21,16 @@
 
       <v-spacer></v-spacer> 
 
-      <v-text-field
-        hide-details
-        prepend-icon="mdi-magnify"
-        single-line
-    ></v-text-field>
+      <form
+      method="get"
+      th:action="@{/search}">
+        <v-text-field
+          name="args"
+          hide-details
+          prepend-icon="mdi-magnify"
+          single-line
+      ></v-text-field>
+    </form>
 
     </v-toolbar>
       <v-img 
