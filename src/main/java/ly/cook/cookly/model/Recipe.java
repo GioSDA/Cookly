@@ -7,14 +7,12 @@ import lombok.Setter;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Recipe {
-
 
     //pre-recipe
     ArrayList<Image> images;
