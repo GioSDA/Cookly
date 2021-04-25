@@ -17,7 +17,7 @@ public class SearchIndexingService {
     private HashMap<String, ArrayList<Recipe>> searchResults;
 
     @Async
-    @Scheduled(fixedDelay = 3600000, initialDelay = 1000)
+    @Scheduled(fixedDelay = 3600000, initialDelay = 100000)
     public void indexSearchResults() {
 
     }
