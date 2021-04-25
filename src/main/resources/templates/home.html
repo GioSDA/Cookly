@@ -14,7 +14,10 @@
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <form method="GET" th:action="@{/}">
+        <form 
+          method="GET" 
+          th:action="@{/}"
+        >
           <button type="submit" class="btn btn-primary">Cookly</button>
       </form>
       </v-toolbar-title>
@@ -22,8 +25,9 @@
       <v-spacer></v-spacer> 
 
       <form
-      method="get"
-      th:action="@{/search}">
+        method="get"
+        th:action="@{/search}"
+      >
         <v-text-field
           name="args"
           hide-details
