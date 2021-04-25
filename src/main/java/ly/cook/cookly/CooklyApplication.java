@@ -1,5 +1,6 @@
 package ly.cook.cookly;
 
+import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.repository.RoleRepository;
 import ly.cook.cookly.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +10,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories(basePackageClasses = {
-		UserRepository.class, RoleRepository.class
+		UserRepository.class, RoleRepository.class, RecipeRepository.class
 })
 public class CooklyApplication {
 

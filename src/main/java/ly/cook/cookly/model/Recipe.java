@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,21 +14,27 @@ import java.util.ArrayList;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(collection = "recipe")
 public class Recipe {
+    @Id
+    private String id;
 
     //pre-recipe
-    ArrayList<Image> images;
-    int prepTime;
-    int cookTime;
-    int time;
-    int servings;
+    private String title;
+    private String description;
+
+    private ArrayList<Image> images;
+    private int prepTime;
+    private int cookTime;
+    private int time;
+    private int servings;
 
     //recipe
-    ArrayList<String> ingredients;
-    ArrayList<String> steps;
+    private ArrayList<String> ingredients;
+    private ArrayList<String> steps;
 
     //post-recipe
-    String notes;
-    ArrayList<Comment> comments;
+    private String notes;
+    private ArrayList<Comment> comments;
 
 }
