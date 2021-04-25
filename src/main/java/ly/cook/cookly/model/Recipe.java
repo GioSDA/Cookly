@@ -28,7 +28,7 @@ public class Recipe {
     ArrayList<String> steps;
 
     //post-recipe
-    Optional<String> notes;
+    String notes;
     ArrayList<Comment> comments;
 
 }
