@@ -24,8 +24,6 @@ public class Recipe {
     private String description;
 
     private ArrayList<Image> images;
-    private int prepTime;
-    private int cookTime;
     private int time;
     private int servings;
 
@@ -34,6 +32,7 @@ public class Recipe {
     private ArrayList<String> steps;
 
     //post-recipe
+    private String source;
     private String notes;
     private ArrayList<Comment> comments;
 
