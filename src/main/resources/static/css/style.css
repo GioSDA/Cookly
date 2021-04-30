@@ -34,8 +34,14 @@ body {
 }
 
 .search-results {
-  display: grid;
-  grid-template-rows: auto;
+  position: relative;
+  margin-top: 1em;
+  display: flex;
+}
+
+.search-results-text-field {
+  margin: auto;
+  max-width: 80%;
 }
 
 .form-signin {

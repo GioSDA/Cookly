@@ -90,9 +90,10 @@ public class AuthController {
     }
 
     @RequestMapping(value = {"/search/results"}, method = RequestMethod.GET)
-    public ModelAndView searchresults(@RequestParam("args") String search) {
+    public ModelAndView searchresults(@RequestParam("q") String query) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("searchresults");
+        mav.addObject("query", query);
         mav.addObject("results", recipeRepository.findAll());
         return mav;
     }

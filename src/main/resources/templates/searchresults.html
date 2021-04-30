@@ -9,10 +9,25 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div search-results>
+
+    <form
+        method="get"
+        th:action="@{/search/results}"
+     >
+        <v-text-field
+            name="q"
+            hide-details
+            prepend-icon="mdi-magnify"
+            single-line
+            th:value="${query}"
+            class="search-results-text-field"
+        ></v-text-field>
+    </form>
+
+    <div class="search-results">
         <tr th:each="result : ${results}">
             <v-card 
-                max-width="400"
+                max-width="30%"
             >
                 <v-img
                     height="250"
