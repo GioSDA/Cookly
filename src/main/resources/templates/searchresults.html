@@ -20,6 +20,21 @@
                 ></v-img>
 
                 <v-card-title><td th:text="${result.title}"></td></v-card-title>
+
+                <v-card-actions>
+                    <form 
+                        method="GET" 
+                        th:action="@{/recipes/} + ${result.id}"
+                    >
+                        <v-btn
+                            type="submit"
+                            text
+                            color="deep-purple lighten-2"
+                        >
+                            View Recipe
+                        </v-btn>
+                    </form>
+                </v-card-actions>
             </v-card>
         </tr>
     </div>
