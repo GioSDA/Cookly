@@ -17,13 +17,13 @@ import java.util.ArrayList;
 @Document(collection = "recipe")
 public class Recipe {
     @Id
-    private String id;
+    private Integer id;
 
     //pre-recipe
     private String title;
     private String description;
 
-    private ArrayList<Image> images;
+    private ArrayList<String> images;
     private int time;
     private int servings;
 

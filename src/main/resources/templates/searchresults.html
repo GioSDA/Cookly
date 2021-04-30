@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="default">
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div search-results>
+        <tr th:each="result : ${results}">
+            <v-card 
+                max-width="400"
+            >
+                <v-img
+                    height="250"
+                    src="images/stockcake.jpg"
+                ></v-img>
+
+                <v-card-title><td th:text="${result.title}"></td></v-card-title>
+            </v-card>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

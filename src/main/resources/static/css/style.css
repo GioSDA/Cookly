@@ -3,10 +3,6 @@ body {
   height: 100%;
 }
 
-.navbar {
-  box-shadow: 2px 2px 3px black;
-}
-
 .cooklyhome {
   margin-left: 10%;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -35,6 +31,11 @@ body {
   text-shadow:2px 2px black;
   z-index: 1000000;
   white-space: nowrap;
+}
+
+.search-results {
+  display: grid;
+  grid-template-rows: auto;
 }
 
 .form-signin {

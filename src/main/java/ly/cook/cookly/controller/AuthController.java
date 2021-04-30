@@ -1,6 +1,8 @@
 package ly.cook.cookly.controller;
 
+import ly.cook.cookly.model.Recipe;
 import ly.cook.cookly.model.User;
+import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,13 +11,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class AuthController {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+
+    @Autowired
+    RecipeRepository recipeRepository;
 
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -77,6 +86,14 @@ public class AuthController {
     public ModelAndView hello() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("hello");
+        return mav;
+    }
+
+    @RequestMapping(value = {"/search/results"}, method = RequestMethod.GET)
+    public ModelAndView searchresults(@RequestParam("args") String search) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("searchresults");
+        mav.addObject("results", recipeRepository.findAll());
         return mav;
     }
 
