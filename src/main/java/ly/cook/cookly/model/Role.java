@@ -7,10 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Document(collection = "role")
 public class Role {
-    @Id
-    private String id;
 
     private String role;
 

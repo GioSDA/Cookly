@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class Recipe {
     //post-recipe
     private String source;
     private String notes;
+
+    @DBRef
     private ArrayList<Comment> comments;
 
 }

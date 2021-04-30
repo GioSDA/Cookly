@@ -20,6 +20,5 @@ public class User {
     private String name;
     private boolean enabled;
 
-    @DBRef
     private Set<Role> roles;
 }
