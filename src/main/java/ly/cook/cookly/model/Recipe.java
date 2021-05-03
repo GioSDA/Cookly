@@ -34,8 +34,27 @@ public class Recipe {
     //post-recipe
     private String source;
     private String notes;
+    private int averageRanking;
 
     @DBRef
     private ArrayList<Comment> comments;
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        System.out.println(comment);
+        System.out.println("Success");
+    }
+
+    public void updateRanking() {
+        double num = 0;
+        int i = 0;
+
+        for (Comment comment: comments) {
+            i++;
+            num += comment.getScore();
+        }
+
+        averageRanking = (i != 0 ? (int) (num / i) : 0);
+    }
 
 }

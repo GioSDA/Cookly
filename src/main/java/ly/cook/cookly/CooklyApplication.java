@@ -1,6 +1,8 @@
 package ly.cook.cookly;
 
+import ly.cook.cookly.repository.CommentRepository;
 import ly.cook.cookly.repository.RecipeRepository;
+import ly.cook.cookly.repository.RoleRepository;
 import ly.cook.cookly.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableMongoRepositories(basePackageClasses = {
-		UserRepository.class, RecipeRepository.class
+		UserRepository.class, RecipeRepository.class, CommentRepository.class, RoleRepository.class
 })
 public class CooklyApplication {
 

@@ -2,6 +2,7 @@ package ly.cook.cookly.service;
 
 import ly.cook.cookly.model.Role;
 import ly.cook.cookly.model.User;
+import ly.cook.cookly.repository.RoleRepository;
 import ly.cook.cookly.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +22,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findUserByEmail(String email) {
@@ -29,6 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
         userRepository.save(user);
     }
 

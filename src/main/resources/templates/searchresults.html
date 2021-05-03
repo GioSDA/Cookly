@@ -34,6 +34,27 @@
                     th:src="${result.images[0]}"
                 ></v-img>
 
+                <v-card-text class="layout text-center">
+                    <v-row
+                    align="center"
+                    justify="center"
+                    >
+
+                        <v-rating
+                        th:value="${result.averageRanking/20}"
+                        color="amber"
+                        dense
+                        half-increments
+                        readonly
+                        size="14"
+                      ></v-rating>
+
+                        <td th:text="'(' + ${result.comments.size()} + ')'"></td>
+
+                    </v-row>
+
+                </v-card-text>
+
                 <v-card-title><td th:text="${result.title}"></td></v-card-title>
 
                 <v-card-actions>

@@ -44,6 +44,16 @@ body {
   max-width: 80%;
 }
 
+.ratings {
+  margin-left: 1rem;
+  margin-top: 1em;
+}
+
+.rating-info {
+  color:amber;
+  font-family:'Courier New', Courier, monospace;
+}
+
 .form-signin {
   width: 100%;
   max-width: 330px;
