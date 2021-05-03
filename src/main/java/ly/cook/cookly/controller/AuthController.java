@@ -3,6 +3,7 @@ package ly.cook.cookly.controller;
 import ly.cook.cookly.model.Comment;
 import ly.cook.cookly.model.Recipe;
 import ly.cook.cookly.model.User;
+import ly.cook.cookly.repository.CommentRepository;
 import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class AuthController {
 
     @Autowired
     RecipeRepository recipeRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -98,6 +102,7 @@ public class AuthController {
         mav.setViewName("searchresults");
         mav.addObject("query", query);
         mav.addObject("results", recipeRepository.findAll());
+
         return mav;
     }
 
