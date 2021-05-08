@@ -1,12 +1,12 @@
 package ly.cook.cookly.controller;
 
-import ly.cook.cookly.model.Comment;
 import ly.cook.cookly.model.Recipe;
 import ly.cook.cookly.model.User;
 import ly.cook.cookly.repository.CommentRepository;
 import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -102,6 +99,21 @@ public class AuthController {
         mav.setViewName("searchresults");
         mav.addObject("query", query);
         mav.addObject("results", recipeRepository.findAll());
+
+        return mav;
+    }
+
+    @RequestMapping(value = {"/recipe"}, method = RequestMethod.GET)
+    public ModelAndView recipe(@RequestParam("r") String recipeid) {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("recipe");
+
+        Optional<Recipe> r = recipeRepository.findById(Integer.parseInt(recipeid));
+        if (r.isPresent()) {
+            mav.addObject("recipe", recipeRepository.findById(Integer.parseInt(recipeid)).get());
+        } else {
+            mav.setStatus(HttpStatus.NOT_FOUND);
+        }
 
         return mav;
     }

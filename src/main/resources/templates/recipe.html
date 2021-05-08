@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="default">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <v-toolbar>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    
+          <v-toolbar-title>
+            <form 
+              method="GET" 
+              th:action="@{/}"
+            >
+              <button type="submit" class="btn btn-primary">Cookly</button>
+          </form>
+          </v-toolbar-title>
+    
+          <v-spacer></v-spacer> 
+  
+          <form
+            method="get"
+            th:action="@{/search/results}"
+          >
+            <v-text-field
+              name="q"
+              hide-details
+              prepend-icon="mdi-magnify"
+              single-line
+          ></v-text-field>
+        </form>
+    
+        </v-toolbar>
+
+        <div class="recipe">
+
+        <v-card
+        tile
+        class="pb-3 mx-auto">
+          <v-card-title th:text="${recipe.title}"></v-card-title>
+          <v-card-text th:text="${recipe.description}"></v-card-text>
+          <v-row
+            align="center"
+            justify="center"
+          >
+            <v-rating
+              th:value="${recipe.averageRanking/20}"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="20"
+            ></v-rating>
+
+            <td th:text="'(' + ${recipe.comments.size()} + ')'"></td>
+          
+          </v-row>
+
+        </v-card>
+
+          <v-carousel
+          height="500">
+            <tr th:each="image : ${recipe.images}">
+              <v-carousel-item
+              th:src="${image}"></v-carousel-item>
+            </tr>
+          </v-carousel>
+          
+          <v-card
+          class="mx-auto"
+          tile>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Time to make
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <td th:text="${recipe.time/60} + ' hour' + ${recipe.time/60 != 1 ?'s':''}"></td>
+                  <td th:text="${recipe.time%60} + ' minute' + ${recipe.time%60 != 1 ?'s':''}"></td>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Servings
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  <td th:text="${recipe.servings}"></td>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+
+        </div>
+
+        
+</div>
+</body>
+</html>
