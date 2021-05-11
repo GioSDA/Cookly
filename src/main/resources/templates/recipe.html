@@ -40,13 +40,14 @@
         <div class="recipe">
 
         <v-card
-        tile
-        class="pb-3 mx-auto text-center">
-          <v-card-title class="justify-center" th:text="${recipe.title}"></v-card-title>
-          <v-card-text th:text="${recipe.description}"></v-card-text>
+        shaped
+        elevation="10">
+          <v-card-title class="headline justify-center mb-1" th:text="${recipe.title}"></v-card-title>
+          <v-card-text class="mx-auto text-center" th:text="${recipe.description}"></v-card-text>
           <v-row
             align="center"
             justify="center"
+            class="mb-3"
           >
             <v-rating
               th:value="${recipe.averageRanking/20}"
@@ -61,8 +62,6 @@
           
           </v-row>
 
-        </v-card>
-
           <v-carousel
           height="500">
             <tr th:each="image : ${recipe.images}">
@@ -70,33 +69,29 @@
               th:src="${image}"></v-carousel-item>
             </tr>
           </v-carousel>
-          
-          <v-card
-          class="mx-auto"
-          tile>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Time to make
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  <td th:text="${recipe.time/60} + ' hour' + ${recipe.time/60 != 1 ?'s':''}"></td>
-                  <td th:text="${recipe.time%60} + ' minute' + ${recipe.time%60 != 1 ?'s':''}"></td>
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
 
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Servings
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  <td th:text="${recipe.servings}"></td>
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-card>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
+                Time to make
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                <td th:text="${recipe.time/60} + ' hour' + ${recipe.time/60 != 1 ?'s':''}"></td>
+                <td th:text="${recipe.time%60} + ' minute' + ${recipe.time%60 != 1 ?'s':''}"></td>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>
+                Servings
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                <td th:text="${recipe.servings}"></td>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
 
         </div>
 
