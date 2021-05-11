@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -29,8 +30,7 @@ public class Recipe {
 
     //recipe
     private ArrayList<String> ingredients;
-    private ArrayList<String> steps;
-
+    private Map<String, ArrayList<String>> steps;
     //post-recipe
     private String source;
     private String notes;

@@ -92,6 +92,28 @@
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+        </v-card>
+        <v-card
+        class="my-5">
+          <v-list 
+          shaped>
+            <v-subheader>INGREDIENTS</v-subheader>
+            <tr th:each="ingredient : ${recipe.ingredients}">
+              <v-list-item th:text="${ingredient}"></v-list-item>
+            </tr>
+          </v-list>
+        </v-card>
+
+        <v-card
+        class="my-5">
+          <v-list 
+          shaped>
+            <v-subheader>STEPS</v-subheader>
+            <tr th:each="step, iStat : ${recipe.steps}">
+              <v-list-item th:text="${iStat.index+1} + ' ' + ${step}"></v-list-item>
+            </tr>
+          </v-list>
+        </v-card>
 
         </div>
 
