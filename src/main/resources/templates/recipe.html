@@ -1,54 +1,48 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
-<head>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="default"
+>
+  <head>
     <title>Spring Security Example</title>
-</head>
-<body>
-<div layout:fragment="content">
-    <v-toolbar>
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <v-toolbar>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    
-          <v-toolbar-title>
-            <form 
-              method="GET" 
-              th:action="@{/}"
-            >
-              <button type="submit" class="btn btn-primary">Cookly</button>
+
+        <v-toolbar-title>
+          <form method="GET" th:action="@{/}">
+            <button type="submit" class="btn btn-primary">Cookly</button>
           </form>
-          </v-toolbar-title>
-    
-          <v-spacer></v-spacer> 
-  
-          <form
-            method="get"
-            th:action="@{/search/results}"
-          >
-            <v-text-field
-              name="q"
-              hide-details
-              prepend-icon="mdi-magnify"
-              single-line
+        </v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <form method="get" th:action="@{/search/results}">
+          <v-text-field
+            name="q"
+            hide-details
+            prepend-icon="mdi-magnify"
+            single-line
           ></v-text-field>
         </form>
-    
-        </v-toolbar>
+      </v-toolbar>
 
-        <div class="recipe">
-
-        <v-card
-        shaped
-        elevation="10">
-          <v-card-title class="headline justify-center mb-1" th:text="${recipe.title}"></v-card-title>
-          <v-card-text class="mx-auto text-center" th:text="${recipe.description}"></v-card-text>
-          <v-row
-            align="center"
-            justify="center"
-            class="mb-3"
-          >
+      <div class="recipe">
+        <v-card shaped elevation="10">
+          <v-card-title
+            class="headline justify-center mb-1"
+            th:text="${recipe.title}"
+          ></v-card-title>
+          <v-card-text
+            class="mx-auto text-center"
+            th:text="${recipe.description}"
+          ></v-card-text>
+          <v-row align="center" justify="center" class="mb-3">
             <v-rating
               th:value="${recipe.averageRanking/20}"
               color="amber"
@@ -59,44 +53,39 @@
             ></v-rating>
 
             <td th:text="'(' + ${recipe.comments.size()} + ')'"></td>
-          
           </v-row>
 
-          <v-carousel
-          height="500">
+          <v-carousel height="500">
             <tr th:each="image : ${recipe.images}">
-              <v-carousel-item
-              th:src="${image}"></v-carousel-item>
+              <v-carousel-item th:src="${image}"></v-carousel-item>
             </tr>
           </v-carousel>
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>
-                Time to make
-              </v-list-item-title>
+              <v-list-item-title> Time to make </v-list-item-title>
               <v-list-item-subtitle>
-                <td th:text="${recipe.time/60} + ' hour' + ${recipe.time/60 != 1 ?'s':''}"></td>
-                <td th:text="${recipe.time%60} + ' minute' + ${recipe.time%60 != 1 ?'s':''}"></td>
+                <td
+                  th:text="${recipe.time/60} + ' hour' + ${recipe.time/60 != 1 ?'s':''}"
+                ></td>
+                <td
+                  th:text="${recipe.time%60} + ' minute' + ${recipe.time%60 != 1 ?'s':''}"
+                ></td>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>
-                Servings
-              </v-list-item-title>
+              <v-list-item-title> Servings </v-list-item-title>
               <v-list-item-subtitle>
                 <td th:text="${recipe.servings}"></td>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-card>
-        <v-card
-        class="my-5">
-          <v-list 
-          shaped>
+        <v-card class="my-5">
+          <v-list shaped>
             <v-subheader>INGREDIENTS</v-subheader>
             <tr th:each="ingredient : ${recipe.ingredients}">
               <v-list-item th:text="${ingredient}"></v-list-item>
@@ -104,20 +93,17 @@
           </v-list>
         </v-card>
 
-        <v-card
-        class="my-5">
-          <v-list 
-          shaped>
+        <v-card class="my-5">
+          <v-list shaped>
             <v-subheader>STEPS</v-subheader>
             <tr th:each="step, iStat : ${recipe.steps}">
-              <v-list-item th:text="${iStat.index+1} + ' ' + ${step}"></v-list-item>
+              <v-list-item
+                th:text="${iStat.index+1} + ' ' + ${step}"
+              ></v-list-item>
             </tr>
           </v-list>
         </v-card>
-
-        </div>
-
-        
-</div>
-</body>
+      </div>
+    </div>
+  </body>
 </html>

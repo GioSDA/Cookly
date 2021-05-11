@@ -1,75 +1,62 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
-<head>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="default"
+>
+  <head>
     <title>Search Results</title>
-</head>
-<body>
-<div layout:fragment="content">
-
-    <form
-        method="get"
-        th:action="@{/search/results}"
-     >
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <form method="get" th:action="@{/search/results}">
         <v-text-field
-            name="q"
-            hide-details
-            prepend-icon="mdi-magnify"
-            single-line
-            th:value="${query}"
-            class="search-results-text-field"
+          name="q"
+          hide-details
+          prepend-icon="mdi-magnify"
+          single-line
+          th:value="${query}"
+          class="search-results-text-field"
         ></v-text-field>
-    </form>
+      </form>
 
-    <div class="search-results">
+      <div class="search-results">
         <tr th:each="result : ${results}">
-            <v-card 
-                max-width="30%"
-            >
-                <v-img
-                    height="300"
-                    th:src="${result.images[0]}"
-                ></v-img>
+          <v-card max-width="30%">
+            <v-img height="300" th:src="${result.images[0]}"></v-img>
 
-                <v-card-text class="layout text-center">
-                    <v-row
-                    align="center"
-                    justify="center"
-                    >
+            <v-card-text class="layout text-center">
+              <v-row align="center" justify="center">
+                <v-rating
+                  th:value="${result.averageRanking/20}"
+                  color="amber"
+                  dense
+                  half-increments
+                  readonly
+                  size="14"
+                ></v-rating>
 
-                        <v-rating
-                        th:value="${result.averageRanking/20}"
-                        color="amber"
-                        dense
-                        half-increments
-                        readonly
-                        size="14"
-                      ></v-rating>
+                <td th:text="'(' + ${result.comments.size()} + ')'"></td>
+              </v-row>
+            </v-card-text>
 
-                        <td th:text="'(' + ${result.comments.size()} + ')'"></td>
+            <v-card-title><td th:text="${result.title}"></td></v-card-title>
 
-                    </v-row>
-
-                </v-card-text>
-
-                <v-card-title><td th:text="${result.title}"></td></v-card-title>
-
-                <v-card-actions>
-                    <v-btn
-                        type="submit"
-                        text
-                        th:href="@{/recipe?r=} + ${result.id}"
-                        color="deep-purple lighten-2"
-                    >
-                        View Recipe
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
+            <v-card-actions>
+              <v-btn
+                type="submit"
+                text
+                th:href="@{/recipe?r=} + ${result.id}"
+                color="deep-purple lighten-2"
+              >
+                View Recipe
+              </v-btn>
+            </v-card-actions>
+          </v-card>
         </tr>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>

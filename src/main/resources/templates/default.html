@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Default</title>
-    <meta name="description" content=""/>
-    <meta charset="UTF-8">
+    <meta name="description" content="" />
+    <meta charset="UTF-8" />
 
     <script src="https://unpkg.com/vuex"></script>
-    
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-</head>
-<body>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
     <div id="app">
-    <v-app>
+      <v-app>
         <v-main>
-            <div layout:fragment="content"></div>
+          <div layout:fragment="content"></div>
         </v-main>
-    </v-app>
+      </v-app>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script>
-    new Vue({
-        el: '#app',
+      new Vue({
+        el: "#app",
         vuetify: new Vuetify({
-            theme: {
-                dark: true
-            }
+          theme: {
+            dark: true,
+          },
         }),
-        data () {
-        return {
+        data() {
+          return {
             chefImg: [
-                {
-                    src: '/images/chef3.jpg',
-                    lazy: '/images/chef3s.jpg'
-                }
-            ]
-        }
-      }
-    })
+              {
+                src: "/images/chef3.jpg",
+                lazy: "/images/chef3s.jpg",
+              },
+            ],
+          };
+        },
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -1,50 +1,47 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
-<head>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="default"
+>
+  <head>
     <title>Cookly</title>
-    <link rel="preload" as="image" href="/images/chef3s.jpg">
-</head>
-<body>
-  <div layout:fragment="content">
-    <v-toolbar>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <link rel="preload" as="image" href="/images/chef3s.jpg" />
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <v-toolbar>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>
-        <form 
-          method="GET" 
-          th:action="@{/}"
-        >
-          <button type="submit" class="btn btn-primary">Cookly</button>
-      </form>
-      </v-toolbar-title>
+        <v-toolbar-title>
+          <form method="GET" th:action="@{/}">
+            <button type="submit" class="btn btn-primary">Cookly</button>
+          </form>
+        </v-toolbar-title>
 
-      <v-spacer></v-spacer> 
+        <v-spacer></v-spacer>
 
-      <form
-        method="get"
-        th:action="@{/search/results}"
-      >
-        <v-text-field
-          name="q"
-          hide-details
-          prepend-icon="mdi-magnify"
-          single-line
-      ></v-text-field>
-    </form>
-
-    </v-toolbar>
-      <v-img 
+        <form method="get" th:action="@{/search/results}">
+          <v-text-field
+            name="q"
+            hide-details
+            prepend-icon="mdi-magnify"
+            single-line
+          ></v-text-field>
+        </form>
+      </v-toolbar>
+      <v-img
         lazy-src="/images/chef3s.jpg"
         src="/images/chef3.jpg"
         height="1000"
       >
-      <span class="hometext">Welcome to Cookly™.</span>
-      <span class="homesubtext">The smartest and fastest cooking website.</span>
-    </v-img>
-  </div>
-</body>
+        <span class="hometext">Welcome to Cookly™.</span>
+        <span class="homesubtext"
+          >The smartest and fastest cooking website.</span
+        >
+      </v-img>
+    </div>
+  </body>
 </html>
