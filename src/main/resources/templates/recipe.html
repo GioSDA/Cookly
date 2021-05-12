@@ -57,7 +57,7 @@
 
           <v-carousel height="500">
             <tr th:each="image : ${recipe.images}">
-              <v-carousel-item th:src="${image}"></v-carousel-item>
+              <v-carousel-item th:src="${image.path}"></v-carousel-item>
             </tr>
           </v-carousel>
 
@@ -94,14 +94,31 @@
         </v-card>
 
         <v-card class="my-5">
-          <v-list shaped>
-            <v-subheader>STEPS</v-subheader>
-            <tr th:each="step, iStat : ${recipe.steps}">
-              <v-list-item
-                th:text="${iStat.index+1} + ' ' + ${step}"
-              ></v-list-item>
-            </tr>
-          </v-list>
+          <v-stepper>
+            <v-stepper-header>
+              <tr th:each="stepCollection, iStat : ${recipe.steps.keySet()}">
+                <v-stepper-step
+                th:step="${iStat.index+1}"
+                th:text="${stepCollection}">
+                
+                </v-stepper-step>
+                <v-divider></v-divider>
+              </tr>
+            </v-stepper-header>
+
+            <v-stepper-items>
+              <tr th:each="stepEntry, iStat : ${recipe.steps}">
+                <v-stepper-content
+                th:step="${iStat.index+1}">
+                  <v-card
+                  class="mb-4"
+                  height="200px">
+                      
+                  </v-card>
+                </v-stepper-content>
+              </tr>
+            </v-stepper-items>
+          </v-stepper>
         </v-card>
       </div>
     </div>

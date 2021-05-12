@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 @Getter
 @Setter
@@ -24,13 +24,16 @@ public class Recipe {
     private String title;
     private String description;
 
-    private ArrayList<String> images;
+    @DBRef
+    private ArrayList<Image> images;
+
     private int time;
     private int servings;
 
     //recipe
     private ArrayList<String> ingredients;
-    private Map<String, ArrayList<String>> steps;
+    private HashMap<String, ArrayList<String>> steps;
+
     //post-recipe
     private String source;
     private String notes;

@@ -25,7 +25,7 @@
       <div class="search-results">
         <tr th:each="result : ${results}">
           <v-card max-width="30%">
-            <v-img height="300" th:src="${result.images[0]}"></v-img>
+            <v-img height="300" th:src="${result.images[0].path}"></v-img>
 
             <v-card-text class="layout text-center">
               <v-row align="center" justify="center">

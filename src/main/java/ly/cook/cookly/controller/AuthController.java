@@ -1,10 +1,11 @@
 package ly.cook.cookly.controller;
 
-import com.mongodb.DBRef;
 import ly.cook.cookly.model.Comment;
+import ly.cook.cookly.model.Image;
 import ly.cook.cookly.model.Recipe;
 import ly.cook.cookly.model.User;
 import ly.cook.cookly.repository.CommentRepository;
+import ly.cook.cookly.repository.ImageRepository;
 import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class AuthController {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -110,7 +114,7 @@ public class AuthController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("recipe");
 
-//        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<String>(Arrays.asList("/images/stockcake.jpg")), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), Steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
+//        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
 
         Optional<Recipe> r = recipeRepository.findById(Integer.parseInt(recipeid));
         if (r.isPresent()) {
