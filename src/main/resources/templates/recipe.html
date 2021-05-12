@@ -113,7 +113,9 @@
                   <v-card
                   class="mb-4"
                   height="200px">
-                      
+                  <div th:each="step, jStat : ${stepEntry.value}">
+                    <list-item th:text="${jStat.index+1 + ' ' + step}"></list-item>
+                  </div>
                   </v-card>
                 </v-stepper-content>
               </tr>
