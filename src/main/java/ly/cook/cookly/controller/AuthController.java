@@ -1,7 +1,7 @@
 package ly.cook.cookly.controller;
 
-import ly.cook.cookly.model.Comment;
-import ly.cook.cookly.model.Image;
+import com.mongodb.Mongo;
+import com.mongodb.client.MongoClients;
 import ly.cook.cookly.model.Recipe;
 import ly.cook.cookly.model.User;
 import ly.cook.cookly.repository.CommentRepository;
@@ -9,6 +9,11 @@ import ly.cook.cookly.repository.ImageRepository;
 import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -35,6 +41,8 @@ public class AuthController {
 
     @Autowired
     ImageRepository imageRepository;
+
+    MongoTemplate template = new MongoTemplate(MongoClients.create("mongodb://localhost:27017"), "cooklydb");
 
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -104,7 +112,13 @@ public class AuthController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("searchresults");
         mav.addObject("query", query);
-        mav.addObject("results", recipeRepository.findAll());
+
+        //Search Function
+        TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(query);
+        Query queryC = TextQuery.queryText(criteria).sortByScore();
+
+
+        mav.addObject("results", template.find(queryC, Recipe.class));
 
         return mav;
     }
@@ -117,6 +131,7 @@ public class AuthController {
 //        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
 
         Optional<Recipe> r = recipeRepository.findById(Integer.parseInt(recipeid));
+        r.get().setDate(LocalDate.now());
         if (r.isPresent()) {
             mav.addObject("recipe", recipeRepository.findById(Integer.parseInt(recipeid)).get());
         } else {
