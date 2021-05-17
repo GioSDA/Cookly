@@ -93,14 +93,15 @@
           </v-list>
         </v-card>
 
-        <v-card class="my-5">
-          <v-stepper>
+        <v-card class="mt-5 mb-10">
+          <v-stepper non-linear v-model="e1">
             <v-stepper-header>
               <tr th:each="stepCollection, iStat : ${recipe.steps.keySet()}">
                 <v-stepper-step
-                th:step="${iStat.index+1}"
-                th:text="${stepCollection}">
-                
+                  th:step="${iStat.index+1}"
+                  th:text="${stepCollection}"
+                  editable
+                >
                 </v-stepper-step>
                 <v-divider></v-divider>
               </tr>
@@ -108,14 +109,20 @@
 
             <v-stepper-items>
               <tr th:each="stepEntry, iStat : ${recipe.steps}">
-                <v-stepper-content
-                th:step="${iStat.index+1}">
-                  <v-card
-                  class="mb-4"
-                  height="200px">
-                  <div th:each="step, jStat : ${stepEntry.value}">
-                    <list-item th:text="${jStat.index+1 + ' ' + step}"></list-item>
-                  </div>
+                <v-stepper-content th:step="${iStat.index+1}">
+                  <v-card class="mb-4">
+                    <v-col>
+                      <div th:each="step, jStat : ${stepEntry.value}">
+                        <v-row>
+                          <v-card class="pa-2" tile width="100%">
+                            <v-card-title
+                              th:text="${jStat.index + 1} + '. ' + ${step}"
+                            ></v-card-title>
+                          </v-card>
+                        </v-row>
+                      </div>
+                      <v-btn class="mt-6" th:@click="|nextStep(${iStat.index+1}, ${recipe.steps.size()})|"> Continue </v-btn>
+                    </v-col>
                   </v-card>
                 </v-stepper-content>
               </tr>

@@ -42,6 +42,7 @@
         }),
         data() {
           return {
+            e1: 1,
             chefImg: [
               {
                 src: "/images/chef3.jpg",
@@ -49,6 +50,15 @@
               },
             ],
           };
+        },
+        methods: {
+          nextStep(n, steps) {
+            if (n === steps) {
+              this.e1 = 1;
+            } else {
+              this.e1 = n + 1;
+            }
+          },
         },
       });
     </script>

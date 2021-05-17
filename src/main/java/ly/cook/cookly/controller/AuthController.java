@@ -131,7 +131,6 @@ public class AuthController {
 //        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
 
         Optional<Recipe> r = recipeRepository.findById(Integer.parseInt(recipeid));
-        r.get().setDate(LocalDate.now());
         if (r.isPresent()) {
             mav.addObject("recipe", recipeRepository.findById(Integer.parseInt(recipeid)).get());
         } else {
