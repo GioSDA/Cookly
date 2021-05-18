@@ -42,14 +42,16 @@
             class="mx-auto text-center"
             th:text="${recipe.description}"
           ></v-card-text>
-          <v-row align="center" justify="center" class="mb-3">
+          <v-row align="center" justify="center" class="mb-3" th:with="rating=|Number(${recipe.averageRanking/20})|">
             <v-rating
-              th:value="${recipe.averageRanking/20}"
-              color="amber"
+              length="5"
+              size="20"
+              th:value="${rating}"
+              color="yellow darken-3"
+              background-color="yellow darken-3"
               dense
               half-increments
               readonly
-              size="20"
             ></v-rating>
 
             <td th:text="'(' + ${recipe.comments.size()} + ')'"></td>
@@ -121,7 +123,12 @@
                           </v-card>
                         </v-row>
                       </div>
-                      <v-btn class="mt-6" th:@click="|nextStep(${iStat.index+1}, ${recipe.steps.size()})|"> Continue </v-btn>
+                      <v-btn
+                        class="mt-6"
+                        th:@click="|nextStep(${iStat.index+1}, ${recipe.steps.size()})|"
+                      >
+                        Continue
+                      </v-btn>
                     </v-col>
                   </v-card>
                 </v-stepper-content>
