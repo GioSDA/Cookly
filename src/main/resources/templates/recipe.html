@@ -42,7 +42,7 @@
             class="mx-auto text-center"
             th:text="${recipe.description}"
           ></v-card-text>
-          <v-row align="center" justify="center" class="mb-3" th:with="rating=|Number(${recipe.averageRanking/20})|">
+          <v-row align="center" justify="center" class="mb-3" th:with="rating=|${recipe.averageRanking/20}|">
             <v-rating
               length="5"
               size="20"
