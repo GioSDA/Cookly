@@ -95,9 +95,10 @@
           </v-list>
         </v-card>
 
-        <v-card class="mt-5 mb-10">
+        <v-card class="my-5">
           <v-stepper non-linear v-model="e1">
             <v-stepper-header>
+              <v-divider></v-divider>
               <tr th:each="stepCollection, iStat : ${recipe.steps.keySet()}">
                 <v-stepper-step
                   th:step="${iStat.index+1}"
@@ -135,6 +136,39 @@
               </tr>
             </v-stepper-items>
           </v-stepper>
+        </v-card>
+
+        <v-card class="mt-5 mb-10">
+          <v-list three-line>
+            <v-subheader>Comments</v-subheader>
+            <tr th:each="comment : ${recipe.comments}">
+              <v-list-item>
+              <v-list-item-avatar>
+                <v-img th:src="${comment.user.image.path}"></v-img>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <td th:text="${comment.user.name}"></td>
+                  <v-rating
+                    length="5"
+                    size="16"
+                    th:value="${comment.rating}"
+                    color="yellow darken-3"
+                    background-color="yellow darken-3"
+                    dense
+                    half-increments
+                    readonly
+                  ></v-rating>
+                </v-list-item-title>
+
+                <v-list-item-subtitle>
+                  <div class="white--text" th:text="${comment.text}"></div>
+                  <div th:text="${#temporals.format(comment.postTime, 'dd MMM yyyy')}"></div>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            </tr>
+          </v-list>
         </v-card>
       </div>
     </div>

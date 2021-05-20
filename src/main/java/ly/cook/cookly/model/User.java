@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 @Getter
@@ -19,6 +21,10 @@ public class User {
     private String password;
     private String name;
     private boolean enabled;
+    private HashMap<String, ArrayList<String>> info;
+
+    @DBRef
+    private Image image;
 
     @DBRef
     private Set<Role> roles;
