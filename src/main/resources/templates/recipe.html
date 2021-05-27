@@ -140,7 +140,18 @@
 
         <v-card class="mt-5 mb-10">
           <v-list three-line>
-            <v-subheader>Comments</v-subheader>
+            <v-subheader>
+              Comments
+              <v-btn
+                color="light-blue accent-4"
+                class="text--primary ml-10"
+                >
+                  Leave a comment
+                  <v-icon right>
+                    mdi-message-text
+                  </v-icon>
+                </v-btn>
+            </v-subheader>
             <tr th:each="comment : ${recipe.comments}">
               <v-list-item>
               <v-list-item-avatar>
@@ -151,7 +162,7 @@
                   <td th:text="${comment.user.name}"></td>
                   <v-rating
                     length="5"
-                    size="16"
+                    size="20"
                     th::value="${comment.rating/20}"
                     color="yellow darken-3"
                     background-color="yellow darken-3"
@@ -162,10 +173,10 @@
                 </v-list-item-title>
 
                 <v-list-item-subtitle>
-                  <div class="white--text" th:text="${comment.text}"></div>
-                  <div th:text="${#temporals.format(comment.postTime, 'dd MMM yyyy')}"></div>
+                  <span class="text--primary text-h6" th:text="${comment.text}"></span>
                 </v-list-item-subtitle>
               </v-list-item-content>
+              <span class="text--secondary text-subtitle-1" th:text="${#temporals.format(comment.postTime, 'dd MMM yyyy')}"></span>
             </v-list-item>
             </tr>
           </v-list>
