@@ -138,6 +138,17 @@
           </v-stepper>
         </v-card>
 
+        <v-dialog
+          v-model="dialog"
+          max-width="800"
+        >
+          <v-card>
+            <form class="form-addcomment" th:action="@{/comment}" method="post">
+
+            </form>
+          </v-card>
+        </v-dialog>
+
         <v-card class="mt-5 mb-10">
           <v-list three-line>
             <v-subheader>
@@ -145,6 +156,7 @@
               <v-btn
                 color="light-blue accent-4"
                 class="text--primary ml-10"
+                @click.stop="dialog = true"
                 >
                   Leave a comment
                   <v-icon right>

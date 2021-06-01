@@ -18,8 +18,10 @@ import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -131,7 +133,6 @@ public class AuthController {
     @RequestMapping(value = {"/recipe/{id}"}, method = RequestMethod.GET)
     public ModelAndView recipe(@PathVariable("id") String recipeid) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("recipe");
 
 
 //        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
@@ -139,10 +140,31 @@ public class AuthController {
         Optional<Recipe> r = recipeRepository.findById(Integer.parseInt(recipeid));
 
         if (r.isPresent()) {
+            mav.setViewName("recipe");
             mav.addObject("recipe", recipeRepository.findById(Integer.parseInt(recipeid)).get());
         } else {
             mav.setStatus(HttpStatus.NOT_FOUND);
         }
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/comment", method = RequestMethod.POST)
+    public ModelAndView addComment(Comment comment, Recipe r, BindingResult bindingResult) {
+        ModelAndView mav = new ModelAndView();
+
+        //Check if user is authenticated
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!auth.isAuthenticated()) {
+            bindingResult.rejectValue("user", "error.user", "User is not logged in.");
+            return mav;
+        }
+
+        commentRepository.save(comment);
+
+        r.getComments().add(comment);
+        recipeRepository.save(r);
 
         return mav;
     }
