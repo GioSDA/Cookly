@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ImageRepository extends MongoRepository<Image, Integer> {
 
+    Image findByPath(String path);
+
 }

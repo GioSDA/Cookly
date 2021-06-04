@@ -9,19 +9,19 @@ import ly.cook.cookly.repository.CommentRepository;
 import ly.cook.cookly.repository.ImageRepository;
 import ly.cook.cookly.repository.RecipeRepository;
 import ly.cook.cookly.repository.UserRepository;
+import ly.cook.cookly.service.CommentService;
 import ly.cook.cookly.service.CustomUserDetailsService;
+import ly.cook.cookly.service.ImageService;
+import ly.cook.cookly.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +29,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -41,13 +38,13 @@ public class AuthController {
     private CustomUserDetailsService userDetailsService;
 
     @Autowired
-    RecipeRepository recipeRepository;
+    private RecipeService recipeService;
 
     @Autowired
-    CommentRepository commentRepository;
+    private CommentService commentService;
 
     @Autowired
-    ImageRepository imageRepository;
+    private ImageService imageService;
 
     MongoTemplate template = new MongoTemplate(MongoClients.create("mongodb://localhost:27017"), "cooklydb");
 
@@ -137,11 +134,11 @@ public class AuthController {
 
 //        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
 
-        Optional<Recipe> r = recipeRepository.findById(Integer.parseInt(recipeid));
+        Recipe r = recipeService.loadRecipeById(Integer.parseInt(recipeid));
 
-        if (r.isPresent()) {
+        if (r != null) {
             mav.setViewName("recipe");
-            mav.addObject("recipe", recipeRepository.findById(Integer.parseInt(recipeid)).get());
+            mav.addObject("recipe", recipeService.loadRecipeById(Integer.parseInt(recipeid)));
         } else {
             mav.setStatus(HttpStatus.NOT_FOUND);
         }
@@ -161,10 +158,10 @@ public class AuthController {
             return mav;
         }
 
-        commentRepository.save(comment);
+       commentService.saveComment(comment);
 
         r.getComments().add(comment);
-        recipeRepository.save(r);
+        recipeService.saveRecipe(r);
 
         return mav;
     }
