@@ -8,6 +8,7 @@
 >
   <head>
     <title>Search Results</title>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
   </head>
   <body>
     <div layout:fragment="content">
@@ -38,8 +39,10 @@
                   dense
                   half-increments
                   readonly
+                  empty-icon="mdi-star-outline"
+                  full-icon="mdi-star"
+                  half-icon="mdi-star-half"
                 ></v-rating>
-
                 <td th:text="'(' + ${result.comments.size()} + ')'"></td>
               </v-row>
             </v-card-text>

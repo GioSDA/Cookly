@@ -8,6 +8,7 @@
 >
   <head>
     <title>Spring Security Example</title>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
   </head>
   <body>
     <div layout:fragment="content">
@@ -52,6 +53,9 @@
               dense
               half-increments
               readonly
+              empty-icon="mdi-star-outline"
+              full-icon="mdi-star"
+              half-icon="mdi-star-half"
             ></v-rating>
 
             <td th:text="'(' + ${recipe.comments.size()} + ')'"></td>
@@ -143,31 +147,45 @@
           max-width="800"
         >
           <v-card>
-            <form class="form-addcomment" th:action="@{/comment}" method="post">
               <v-card-title>
-                <div sec:authorize="isAuthenticated()"> You're signed in as <span sec:authentication="name">.</span> </div>
+                <div sec:authorize="isAuthenticated()"> You're signed in as <span sec:authentication="name">.</span></div>
                 <div sec:authorize="isAnonymous()"> You need to sign in to comment.</div>
-                
               </v-card-title>
               <div
               sec:authorize="isAuthenticated()"
               class="pa-6"
               >
+              <form class="form-addcomment" th:action="@{|/recipe/${recipe.id}/coment|}" method="post">
                 <v-textarea
                   type="text"
-                >
-                </v-textarea>
-                <v-rating
-                  type="rating"
-                  length="5"
-                  size="20"
-                  color="yellow darken-3"
-                  background-color="yellow darken-3"
-                  dense
-                  half-increments>
-                </v-rating>
-              </div>
-            </form>
+                  name="inputText"
+                  id="inputText"
+                ></v-textarea>
+                <v-row>
+                  <v-rating
+                    name="rating"
+                    id="inputRating"
+                    length="5"
+                    size="20"
+                    color="yellow darken-3"
+                    background-color="yellow darken-3"
+                    dense
+                    hover
+                    half-increments
+                    empty-icon="mdi-star-outline"
+                    full-icon="mdi-star"
+                    half-icon="mdi-star-half"></v-rating>
+                  <v-btn class="text-right" type="submit">Post Comment</v-btn>
+                </v-row>
+              </form>
+            </div>
+            <div
+            sec:authorize="isAnonymous()"
+            class="pa-6">
+              <form method="GET" th:action="@{/login}">
+                <v-btn type="submit">Log In</v-btn>
+              </form>
+            </div>
           </v-card>
         </v-dialog>
 
@@ -203,6 +221,9 @@
                     dense
                     half-increments
                     readonly
+                    empty-icon="mdi-star-outline"
+                    full-icon="mdi-star"
+                    half-icon="mdi-star-half"
                   ></v-rating>
                 </v-list-item-title>
 
