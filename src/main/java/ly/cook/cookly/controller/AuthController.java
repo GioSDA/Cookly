@@ -151,12 +151,12 @@ public class AuthController {
         ModelAndView mav = new ModelAndView();
 
         //Check if user is authenticated
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!auth.isAuthenticated()) {
-            bindingResult.rejectValue("user", "error.user", "User is not logged in.");
-            return mav;
-        }
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (!auth.isAuthenticated()) {
+//            bindingResult.rejectValue("user", "error.user", "User is not logged in.");
+//            return mav;
+//        }
 
        commentService.saveComment(comment);
 

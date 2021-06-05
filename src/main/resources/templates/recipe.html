@@ -144,7 +144,29 @@
         >
           <v-card>
             <form class="form-addcomment" th:action="@{/comment}" method="post">
-
+              <v-card-title>
+                <div sec:authorize="isAuthenticated()"> You're signed in as <span sec:authentication="name">.</span> </div>
+                <div sec:authorize="isAnonymous()"> You need to sign in to comment.</div>
+                
+              </v-card-title>
+              <div
+              sec:authorize="isAuthenticated()"
+              class="pa-6"
+              >
+                <v-textarea
+                  type="text"
+                >
+                </v-textarea>
+                <v-rating
+                  type="rating"
+                  length="5"
+                  size="20"
+                  color="yellow darken-3"
+                  background-color="yellow darken-3"
+                  dense
+                  half-increments>
+                </v-rating>
+              </div>
             </form>
           </v-card>
         </v-dialog>
