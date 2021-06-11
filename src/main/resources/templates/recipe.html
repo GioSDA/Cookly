@@ -182,9 +182,7 @@
             <div
             sec:authorize="isAnonymous()"
             class="pa-6">
-              <form method="GET" th:action="@{/login}">
-                <v-btn type="submit">Log In</v-btn>
-              </form>
+              <v-btn th:href="@{/login(redirect=${'/recipe/' + recipe.id})}">Log In</v-btn>
             </div>
           </v-card>
         </v-dialog>

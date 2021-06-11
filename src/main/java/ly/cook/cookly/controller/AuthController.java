@@ -18,6 +18,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,7 +49,16 @@ public class AuthController {
 
     MongoTemplate template = new MongoTemplate(MongoClients.create("mongodb://localhost:27017"), "cooklydb");
 
-    public ModelAndView login() {
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(@RequestParam("redirect") Optional<String> redirect) {
+        ModelAndView mav = new ModelAndView();
+        redirect.ifPresent(s -> mav.addObject("redirect", s));
+        mav.setViewName("login");
+        return mav;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ModelAndView loginPost() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
