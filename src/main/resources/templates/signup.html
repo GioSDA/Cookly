@@ -11,42 +11,61 @@
   </head>
   <body>
     <div layout:fragment="content">
-      <form class="form-signin" th:action="@{/signup}" method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Signup Here</h1>
-        <div th:if="${param.error}">Invalid email and password.</div>
-        <div th:if="${param.logout}">You have been logged out.</div>
-        <label for="inputEmail" class="sr-only">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="inputEmail"
-          class="form-control"
-          placeholder="Email"
-          required=""
-        />
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="inputPassword"
-          class="form-control"
-          placeholder="Password"
-          required=""
-        />
-        <label for="inputName" class="sr-only">Full Name</label>
-        <input
-          type="text"
-          name="name"
-          id="inputEmail"
-          class="form-control"
-          placeholder="Fullname"
-          required=""
-        />
-        <button class="btn" type="submit">Sign Up</button>
-      </form>
-      <form class="form-signin" th:action="@{/login}" method="get">
-        <button class="btn" type="Submit">Sign In</button>
-      </form>
+      <v-card
+      class="mx-auto mt-12"
+      height="800"
+      width="800"
+      align="center"
+      justify="center">
+        <v-form class="form-signin" th:action="@{/signup}" method="post">
+          <h1>Create an account.</h1>
+          <div th:if="${param.error}">Invalid email and password.</div>
+          <div th:if="${param.logout}">You have been logged out.</div>
+          <v-row>
+            <v-text-field
+              type="email"
+              name="email"
+              id="inputEmail"
+              class="form-control"
+              placeholder="Email"
+              required=""
+
+              full-width=true
+              label="Email"
+            />
+          </v-row>
+          <v-row>
+            <v-text-field
+              type="password"
+              name="password"
+              id="inputPassword"
+              class="form-control"
+              placeholder="Password"
+              required=""
+
+              full-width=true
+              label="Password"
+            />
+          </v-row>
+          <v-row>
+            <v-text-field
+              type="text"
+              name="name"
+              id="inputEmail"
+              class="form-control"
+              placeholder="Full Name"
+              required=""
+
+              full-width=true
+              label="Full Name"
+            />
+          </v-row>
+          <v-btn type="submit">Sign up</v-btn>
+        </v-form>
+        <v-form class="form-signin mt-12" th:action="@{/signup}" method="get">
+          <v-btn type="Submit">Sign in</v-btn>
+        </v-form>
+      </v-card>
     </div>
   </body>
 </html>

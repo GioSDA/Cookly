@@ -13,35 +13,45 @@
     <div layout:fragment="content">
       <v-card
       class="mx-auto mt-12"
-      height="600"
-      width="600">
-        <form class="form-signin" th:action="@{/login}" method="post">
-          <h1>Please sign in</h1>
+      height="800"
+      width="800"
+      align="center"
+      justify="center">
+        <v-form class="form-signin" th:action="@{/login}" method="post">
+          <h1>Please sign in.</h1>
           <div th:if="${param.error}">Invalid email and password.</div>
           <div th:if="${param.logout}">You have been logged out.</div>
-          <label for="inputEmail">Email address</label>
-          <input
-            type="email"
-            name="email"
-            id="inputEmail"
-            class="form-control"
-            placeholder="Email"
-            required=""
-          />
-          <label for="inputPassword">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="inputPassword"
-            class="form-control"
-            placeholder="Password"
-            required=""
-          />
-          <button type="submit">Sign in</button>
-        </form>
-        <form class="form-signin" th:action="@{/signup}" method="get">
-          <button type="Submit">Signup Here</button>
-        </form>
+          <v-row>
+            <v-text-field
+              type="email"
+              name="email"
+              id="inputEmail"
+              class="form-control"
+              placeholder="Email"
+              required=""
+
+              full-width=true
+              label="Email"
+            />
+          </v-row>
+          <v-row>
+            <v-text-field
+              type="password"
+              name="password"
+              id="inputPassword"
+              class="form-control"
+              placeholder="Password"
+              required=""
+
+              full-width=true
+              label="Password"
+            />
+          </v-row>
+          <v-btn type="submit">Sign in</v-btn>
+        </v-form>
+        <v-form class="form-signin mt-12" th:action="@{/signup}" method="get">
+          <v-btn type="Submit">Sign up</v-btn>
+        </v-form>
       </v-card>
     </div>
   </body>
