@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -20,8 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+        return new CustomAuthenticationSuccessHandler("/");
+    }
 
     @Bean
     public UserDetailsService mongoUserDetails() {
@@ -47,9 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/search/**").permitAll()
                 .antMatchers("/recipe/**").permitAll()
                 .antMatchers("/dashboard/**").hasAuthority("ADMIN").anyRequest().authenticated()
-                .and().csrf().disable().formLogin().successHandler(customAuthenticationSuccessHandler)
+                .and().csrf().disable()
+                .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .successHandler(successHandler())
                 .failureUrl("/login?error=true")
                 .usernameParameter("email")
                 .passwordParameter("password")

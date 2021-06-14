@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -50,9 +51,9 @@ public class AuthController {
     MongoTemplate template = new MongoTemplate(MongoClients.create("mongodb://localhost:27017"), "cooklydb");
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam("redirect") Optional<String> redirect) {
+    public ModelAndView login(@RequestParam(required = false) String redirect, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        redirect.ifPresent(s -> mav.addObject("redirect", s));
+        if (redirect != null) session.setAttribute("url_prior_login", redirect);
         mav.setViewName("login");
         return mav;
     }
