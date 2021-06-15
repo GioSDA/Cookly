@@ -76,3 +76,7 @@ body {
   margin-left: 10%;
   max-width: 80%;
 }
+
+.hidden {
+  display: none
+}

@@ -28,4 +28,9 @@ public class User {
 
     @DBRef
     private Set<Role> roles;
+
+    public Image getImage() {
+        if (image != null) return image;
+        else return new Image("/images/users/defaultuser.jpg");
+    }
 }

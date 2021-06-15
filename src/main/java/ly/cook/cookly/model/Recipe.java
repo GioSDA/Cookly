@@ -62,4 +62,14 @@ public class Recipe {
         this.notes = notes;
     }
 
+    public void calcAverageRankings() {
+        int ranking = 0;
+
+        for (Comment c : comments) {
+            ranking += c.getRating();
+        }
+
+        this.averageRanking = ranking / comments.size();
+    }
+
 }

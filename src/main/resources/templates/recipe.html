@@ -47,7 +47,7 @@
             <v-rating
               length="5"
               size="20"
-              th::value="${recipe.averageRanking/20}"
+              th::value="${recipe.averageRanking/20.0}"
               color="yellow darken-3"
               background-color="yellow darken-3"
               dense
@@ -164,9 +164,9 @@
                 ></v-textarea>
                 <v-row>
                   <v-rating
+                    v-model="rating"
                     name="rating"
                     id="inputRating"
-                    th:field="*{rating}"
                     length="5"
                     size="20"
                     color="yellow darken-3"
@@ -178,6 +178,10 @@
                     full-icon="mdi-star"
                     half-icon="mdi-star-half"></v-rating>
                   <v-btn class="text-right" type="submit">Post Comment</v-btn>
+                  <input 
+                  class="hidden"
+                  th:field="*{rating}"
+                  :value="rating*20"></input>
                 </v-row>
               </form>
             </div>
@@ -215,7 +219,7 @@
                   <v-rating
                     length="5"
                     size="20"
-                    th::value="${comment.rating/20}"
+                    th::value="${comment.rating/20.0}"
                     color="yellow darken-3"
                     background-color="yellow darken-3"
                     dense

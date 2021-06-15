@@ -171,26 +171,35 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/recipe/{id}/comment", method = RequestMethod.POST)
-    public ModelAndView addComment(CommentDetails comment, @PathVariable("id") Recipe r, BindingResult bindingResult) {
+    public ModelAndView addComment(CommentDetails comment, @PathVariable("id") String recipeid, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView();
 
         //Check if user is authenticated
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (!auth.isAuthenticated()) {
+        if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
             bindingResult.rejectValue("user", "error.user", "User is not logged in.");
             return mav;
         }
 
-        LocalDate myBirthday = LocalDate.of(2006, 8, 22);
+        Recipe r = recipeService.loadRecipeById(recipeid);
 
-        System.out.println(auth.getName());
-        Comment c = new Comment(userDetailsService.findUserByEmail(auth.getName()), comment.getText(), comment.getRating(), myBirthday, 0);
-        commentService.saveComment(c);
+        if (r != null) {
+            LocalDate myBirthday = LocalDate.of(2006, 8, 22);
 
-        r.getComments().add(commentService.loadCommentById("60c7baaeccb909055c36fc95"));
-        r.getComments().add(commentService.loadAndUpdateUndatedComment(myBirthday));
-        recipeService.saveRecipe(r);
+            Comment c = new Comment(userDetailsService.findUserByEmail(auth.getName()), comment.getText(), comment.getRating(), myBirthday, 0);
+            commentService.saveComment(c);
+
+            r.getComments().add(commentService.loadAndUpdateUndatedComment(myBirthday));
+            r.calcAverageRankings();
+            recipeService.saveRecipe(r);
+
+            mav.setViewName("recipe");
+            mav.addObject("recipe", r);
+            mav.addObject("CommentDetails", new CommentDetails());
+        } else {
+            mav.setStatus(HttpStatus.NOT_FOUND);
+        }
 
         return mav;
     }
