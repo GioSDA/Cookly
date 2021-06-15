@@ -90,6 +90,13 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
+
+        <v-card class="my-5">
+          <v-subheader>NOTES</v-subheader>
+          <v-card-title th:text="${recipe.notes}"></v-card-title>
+          <v-card-subtitle th:if="${recipe.source != null}">Recipe Source: <span th:text="${recipe.source}"></span></v-card-subtitle>
+        </v-card>
+
         <v-card class="my-5">
           <v-list shaped>
             <v-subheader>INGREDIENTS</v-subheader>
@@ -100,7 +107,7 @@
         </v-card>
 
         <v-card class="my-5">
-          <v-stepper non-linear v-model="e1">
+          <v-stepper justify="center" align="center" non-linear v-model="e1" min-height="600">
             <v-stepper-header>
               <v-divider></v-divider>
               <tr th:each="stepCollection, iStat : ${recipe.steps.keySet()}">
@@ -128,17 +135,17 @@
                           </v-card>
                         </v-row>
                       </div>
-                      <v-btn
-                        class="mt-6"
-                        th:@click="|nextStep(${iStat.index+1}, ${recipe.steps.size()})|"
-                      >
-                        Continue
-                      </v-btn>
                     </v-col>
                   </v-card>
                 </v-stepper-content>
               </tr>
             </v-stepper-items>
+            <v-btn
+              class="pb-2"
+              th:@click="|nextStep(e1, ${recipe.steps.size()})|"
+            >
+              Continue
+            </v-btn>
           </v-stepper>
         </v-card>
 
