@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 
 @Getter
 @Setter
@@ -25,14 +26,12 @@ public class Comment {
     String text;
     int rating;
     LocalDate postTime;
-    int score; //likes/dislikes
 
     public Comment(User user, String text, int rating, LocalDate postTime, int score) {
         this.user = user;
         this.text = text;
         this.rating = rating;
         this.postTime = postTime;
-        this.score = score;
     }
 
 }
