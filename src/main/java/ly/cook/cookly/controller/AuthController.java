@@ -1,14 +1,8 @@
 package ly.cook.cookly.controller;
 
+import com.mongodb.Mongo;
 import com.mongodb.client.MongoClients;
-import ly.cook.cookly.model.Comment;
-import ly.cook.cookly.model.Image;
-import ly.cook.cookly.model.Recipe;
-import ly.cook.cookly.model.User;
-import ly.cook.cookly.repository.CommentRepository;
-import ly.cook.cookly.repository.ImageRepository;
-import ly.cook.cookly.repository.RecipeRepository;
-import ly.cook.cookly.repository.UserRepository;
+import ly.cook.cookly.model.*;
 import ly.cook.cookly.service.CommentService;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import ly.cook.cookly.service.ImageService;
@@ -18,9 +12,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.time.LocalDate;
 
 @Controller
 public class AuthController {
@@ -142,14 +136,14 @@ public class AuthController {
     public ModelAndView recipe(@PathVariable("id") String recipeid) {
         ModelAndView mav = new ModelAndView();
 
-
 //        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
 
-        Recipe r = recipeService.loadRecipeById(Integer.parseInt(recipeid));
+        Recipe r = recipeService.loadRecipeById(recipeid);
 
         if (r != null) {
             mav.setViewName("recipe");
-            mav.addObject("recipe", recipeService.loadRecipeById(Integer.parseInt(recipeid)));
+            mav.addObject("recipe", recipeService.loadRecipeById(recipeid));
+            mav.addObject("CommentDetails", new CommentDetails());
         } else {
             mav.setStatus(HttpStatus.NOT_FOUND);
         }
@@ -157,8 +151,27 @@ public class AuthController {
         return mav;
     }
 
-    @RequestMapping(value = "recipe/comment", method = RequestMethod.POST)
-    public ModelAndView addComment(Comment comment, Recipe r, BindingResult bindingResult) {
+    @RequestMapping(value = {"/recipe/{id}/comment"}, method = RequestMethod.GET)
+    public ModelAndView recipeComment(@PathVariable("id") String recipeid) {
+        ModelAndView mav = new ModelAndView();
+
+//        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
+
+        Recipe r = recipeService.loadRecipeById(recipeid);
+
+        if (r != null) {
+            mav.setViewName("recipe");
+            mav.addObject("recipe", recipeService.loadRecipeById(recipeid));
+            mav.addObject("CommentDetails", new CommentDetails());
+        } else {
+            mav.setStatus(HttpStatus.NOT_FOUND);
+        }
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/recipe/{id}/comment", method = RequestMethod.POST)
+    public ModelAndView addComment(CommentDetails comment, @PathVariable("id") Recipe r, BindingResult bindingResult) {
         ModelAndView mav = new ModelAndView();
 
         //Check if user is authenticated
@@ -169,9 +182,14 @@ public class AuthController {
             return mav;
         }
 
-       commentService.saveComment(comment);
+        LocalDate myBirthday = LocalDate.of(2006, 8, 22);
 
-        r.getComments().add(comment);
+        System.out.println(auth.getName());
+        Comment c = new Comment(userDetailsService.findUserByEmail(auth.getName()), comment.getText(), comment.getRating(), myBirthday, 0);
+        commentService.saveComment(c);
+
+        r.getComments().add(commentService.loadCommentById("60c7baaeccb909055c36fc95"));
+        r.getComments().add(commentService.loadAndUpdateUndatedComment(myBirthday));
         recipeService.saveRecipe(r);
 
         return mav;

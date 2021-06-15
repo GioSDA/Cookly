@@ -155,16 +155,18 @@
               sec:authorize="isAuthenticated()"
               class="pa-6"
               >
-              <form class="form-addcomment" th:action="@{|/recipe/${recipe.id}/coment|}" method="post">
+              <form class="form-addcomment" th:action="@{|/recipe/${recipe.id}/comment|}" th:object="${CommentDetails}" method="post">
                 <v-textarea
                   type="text"
-                  name="inputText"
+                  name="text"
                   id="inputText"
+                  th:field="*{text}"
                 ></v-textarea>
                 <v-row>
                   <v-rating
                     name="rating"
                     id="inputRating"
+                    th:field="*{rating}"
                     length="5"
                     size="20"
                     color="yellow darken-3"

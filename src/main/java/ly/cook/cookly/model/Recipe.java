@@ -20,7 +20,7 @@ import java.util.HashMap;
 @Document(collection = "recipe")
 public class Recipe {
     @Id
-    private Integer id;
+    private String id;
 
     //pre-recipe
     @TextIndexed(weight = 5)
@@ -48,5 +48,18 @@ public class Recipe {
     @DBRef
     @TextIndexed
     private ArrayList<Comment> comments;
+
+    public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, int servings, ArrayList<String> ingredients, HashMap<String, ArrayList<String>> steps, String source, String notes) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.images = images;
+        this.time = time;
+        this.servings = servings;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.source = source;
+        this.notes = notes;
+    }
 
 }

@@ -2,6 +2,7 @@ package ly.cook.cookly.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -11,12 +12,13 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "comment")
 public class Comment {
 
     @Id
-    Integer id;
+    String id;
 
     @DBRef
     User user;
@@ -24,5 +26,13 @@ public class Comment {
     int rating;
     LocalDate postTime;
     int score; //likes/dislikes
+
+    public Comment(User user, String text, int rating, LocalDate postTime, int score) {
+        this.user = user;
+        this.text = text;
+        this.rating = rating;
+        this.postTime = postTime;
+        this.score = score;
+    }
 
 }
