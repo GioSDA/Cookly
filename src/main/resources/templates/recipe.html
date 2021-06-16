@@ -69,7 +69,7 @@
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title> Time to make </v-list-item-title>
+              <v-list-item-title> <v-icon dense> mdi-clock </v-icon> Time to make </v-list-item-title>
               <v-list-item-subtitle>
                 <td
                   th:text="${recipe.time/60} + ' hour' + ${recipe.time/60 != 1 ?'s':''}"
@@ -83,7 +83,7 @@
 
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title> Servings </v-list-item-title>
+              <v-list-item-title> <v-icon dense> mdi-silverware-fork </v-icon> Servings </v-list-item-title>
               <v-list-item-subtitle>
                 <td th:text="${recipe.servings}"></td>
               </v-list-item-subtitle>
@@ -92,14 +92,14 @@
         </v-card>
 
         <v-card class="my-5">
-          <v-subheader>NOTES</v-subheader>
+          <v-subheader> <v-icon dense class="mr-2"> mdi-note-multiple </v-icon> NOTES</v-subheader>
           <v-card-title th:text="${recipe.notes}"></v-card-title>
           <v-card-subtitle th:if="${recipe.source != null}">Recipe Source: <span th:text="${recipe.source}"></span></v-card-subtitle>
         </v-card>
 
         <v-card class="my-5">
           <v-list shaped>
-            <v-subheader>INGREDIENTS</v-subheader>
+            <v-subheader> <v-icon dense class="mr-2"> mdi-food-apple </v-icon> INGREDIENTS</v-subheader>
             <tr th:each="ingredient : ${recipe.ingredients}">
               <v-list-item th:text="${ingredient}"></v-list-item>
             </tr>
@@ -203,7 +203,8 @@
         <v-card class="mt-5 mb-10">
           <v-list three-line>
             <v-subheader>
-              Comments
+              <v-icon dense class="mr-2"> mdi-comment-multiple </v-icon>
+              COMMENTS
               <v-btn
                 color="light-blue accent-4"
                 class="text--primary ml-10"
