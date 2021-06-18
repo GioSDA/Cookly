@@ -204,4 +204,21 @@ public class AuthController {
         return mav;
     }
 
+    @RequestMapping(value = "/recipe/create", method = RequestMethod.GET)
+    public ModelAndView addRecipe(BindingResult bindingResult) {
+        ModelAndView  mav = new ModelAndView();
+
+        //Check if user is authenticated
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
+            bindingResult.rejectValue("user", "error.user", "User is not logged in.");
+            return mav;
+        }
+
+        mav.setViewName("addrecipe");
+
+        return mav;
+    }
+
 }
