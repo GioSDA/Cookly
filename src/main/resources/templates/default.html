@@ -46,6 +46,7 @@
             e1: 1,
             dialog: false,
             rating: 0,
+            drawer: false,
           };
         },
         methods: {
@@ -55,7 +56,10 @@
             } else {
               this.e1 = n + 1;
             }
-          },
+          }, 
+          redirect(url) {
+            window.location.href = url;
+          }
         },
       });
     </script>
