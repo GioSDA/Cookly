@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,9 +18,15 @@ public class RecipeDetails {
     String title;
     String description;
 
-    int time;
+    List<MultipartFile> images;
+
+    int minutes;
+    int hours;
     int servings;
 
-    ArrayList<String> ingredients;
-    HashMap<String, ArrayList<String>> steps;
+    String ingredients;
+    String steps;
+
+    private String source;
+    private String notes;
 }
