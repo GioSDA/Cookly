@@ -11,7 +11,101 @@
   </head>
   <body>
     <div layout:fragment="content">
-      
+      <v-card
+      width="80%"
+      class="mx-auto my-12">
+        <v-stepper v-model="e1">
+          <v-stepper-header>
+            <v-stepper-step
+              :complete="e1 > 1"
+              step="1"
+            >
+              Title and description
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+              :complete="e1 > 2"
+              step="2"
+            >
+              Images
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+              :complete="e1 > 3"
+              step="3"
+            >
+              Notes and Source
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+              :complete="e1 > 4"
+              step="4"
+            >
+              Time and Servings
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+              :complete="e1 > 5"
+              step="5"
+            >
+              Ingredients
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+              :complete="e1 > 6"
+              step="6"
+            >
+              Instructions
+            </v-stepper-step>
+          </v-stepper-header>
+          <form method="POST" th:action="@{/recipe/create}" th:object="${RecipeDetails}">
+            </v-stepper-items>
+              <v-stepper-content step="1">
+                Title
+                <v-textarea
+                    type="text"
+                    name="title"
+                    id="inputTitle"
+                    th:field="*{title}"
+                    rows="1"
+                  ></v-textarea>
+
+                <v-spacer></v-spacer>
+
+                Description
+                <v-textarea
+                type="text"
+                name="description"
+                id="inputDescription"
+                th:field="*{description}">
+
+                </v-textarea>
+        
+                <v-btn
+                  color="primary"
+                  @click="e1 = 2"
+                >
+                  Continue
+                </v-btn>
+        
+                <v-btn text>
+                  Cancel
+                </v-btn>
+              </v-stepper-content>
+            </v-stepper-items>
+          </form>
+        </v-stepper>
+      </v-card>
     </div>
   </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,6 +23,9 @@ public class User {
     private String name;
     private boolean enabled;
     private HashMap<String, ArrayList<String>> info;
+
+    @DBRef
+    private List<Recipe> recipes;
 
     @DBRef
     private Image image;

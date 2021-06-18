@@ -1,6 +1,5 @@
 package ly.cook.cookly.controller;
 
-import com.mongodb.Mongo;
 import com.mongodb.client.MongoClients;
 import ly.cook.cookly.model.*;
 import ly.cook.cookly.service.CommentService;
@@ -14,7 +13,6 @@ import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -205,14 +203,16 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/recipe/create", method = RequestMethod.GET)
-    public ModelAndView addRecipe(BindingResult bindingResult) {
+    public ModelAndView addRecipe() {
         ModelAndView  mav = new ModelAndView();
+
+        mav.addObject("RecipeDetails", new RecipeDetails());
 
         //Check if user is authenticated
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
-            bindingResult.rejectValue("user", "error.user", "User is not logged in.");
+            mav.setViewName("/");
             return mav;
         }
 
