@@ -160,6 +160,19 @@
               </v-stepper-content>
 
               <v-stepper-content step="4">
+                <v-spacer></v-spacer>
+                Hours
+                <v-slider
+                name="hours"
+                id="inputHours"
+                th:field="*{hours}"
+
+                max="24"
+                thumb-label
+                ticks
+              ></v-slider>
+
+                <v-spacer></v-spacer>
                 Minutes
                 <v-slider
                   name="minutes"
@@ -171,18 +184,6 @@
                   ticks
                 ></v-slider>
 
-                  <v-spacer></v-spacer>
-
-                  Hours
-                  <v-slider
-                  name="hours"
-                  id="inputHours"
-                  th:field="*{hours}"
-
-                  max="24"
-                  thumb-label
-                  ticks
-                ></v-slider>
 
                 Servings
                 <v-text-field
