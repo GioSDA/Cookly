@@ -1,6 +1,7 @@
 package ly.cook.cookly.controller;
 
 import com.mongodb.client.MongoClients;
+import ly.cook.cookly.CooklyApplication;
 import ly.cook.cookly.model.*;
 import ly.cook.cookly.service.CommentService;
 import ly.cook.cookly.service.CustomUserDetailsService;
@@ -34,6 +35,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 @Controller
 public class AuthController {
@@ -220,7 +222,7 @@ public class AuthController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
-            mav.setViewName("/");
+            mav.setViewName("/home");
             return mav;
         }
 
@@ -230,7 +232,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/recipe/create", method = RequestMethod.POST)
-    public ModelAndView createRecipe(RecipeDetails recipeDetails, BindingResult bindingResult) {
+    public ModelAndView createRecipe(RecipeDetails recipeDetails, BindingResult bindingResult) throws IOException {
         ModelAndView  mav = new ModelAndView();
 
         mav.addObject("RecipeDetails", new RecipeDetails());
@@ -257,19 +259,19 @@ public class AuthController {
         //Add images to database
         for (int i = 0; i < recipeDetails.getImages().size(); i++) {
             MultipartFile file = recipeDetails.getImages().get(i);
-
-            Path filepath = Paths.get("/resources/static/images/recipes" + recipeDetails.getTitle() + i);
-
-            try (OutputStream os = Files.newOutputStream(filepath)) {
-                os.write(file.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (file.getBytes().length > 10000000) {
+                bindingResult.rejectValue("image", "error.image", "Image is too large.");
+                return mav;
             }
 
-            imageService.saveImage(new Image("/resources/static/images/recipes" + recipeDetails.getTitle() + i));
+            File filepath = new File("src/main/resources/static/images/recipes/" + recipeDetails.getTitle() + i);
 
-            if (i == 0) r.setImages(new ArrayList<>(Collections.singletonList(imageService.loadImageByPath("/resources/static/images/recipes" + recipeDetails.getTitle() + i))));
-            else r.getImages().add(imageService.loadImageByPath("/resources/static/images/recipes" + recipeDetails.getTitle() + i));
+            Files.write(Paths.get(filepath.getPath()), file.getBytes());
+
+            imageService.saveImage(new Image(filepath.getPath()));
+
+            if (i == 0) r.setImages(new ArrayList<>(Collections.singletonList(imageService.loadImageByPath(filepath.getPath()))));
+            else r.getImages().add(imageService.loadImageByPath("/resources/static/images/recipes/" + filepath.getPath()));
         }
 
         r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());
@@ -286,7 +288,7 @@ public class AuthController {
 
         recipeService.saveRecipe(r);
 
-        mav.setViewName("/");
+        mav.setViewName("/home");
 
         return mav;
     }
