@@ -20,12 +20,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 @Controller
 public class AuthController {
@@ -235,6 +243,48 @@ public class AuthController {
             return mav;
         }
 
+        if (recipeService.loadRecipeByTitle(recipeDetails.getTitle()) != null) {
+            bindingResult.rejectValue("recipe", "error.recipe", "A recipe already exists by that name!");
+            return mav;
+        }
+
+        Recipe r = new Recipe();
+
+        r.setTitle(recipeDetails.getTitle());
+        r.setDescription(recipeDetails.getDescription());
+        r.setDate(LocalDate.now());
+
+        //Add images to database
+        for (int i = 0; i < recipeDetails.getImages().size(); i++) {
+            MultipartFile file = recipeDetails.getImages().get(i);
+
+            Path filepath = Paths.get("/resources/static/images/recipes" + recipeDetails.getTitle() + i);
+
+            try (OutputStream os = Files.newOutputStream(filepath)) {
+                os.write(file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            imageService.saveImage(new Image("/resources/static/images/recipes" + recipeDetails.getTitle() + i));
+
+            if (i == 0) r.setImages(new ArrayList<>(Collections.singletonList(imageService.loadImageByPath("/resources/static/images/recipes" + recipeDetails.getTitle() + i))));
+            else r.getImages().add(imageService.loadImageByPath("/resources/static/images/recipes" + recipeDetails.getTitle() + i));
+        }
+
+        r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());
+        r.setServings(recipeDetails.getServings());
+
+        r.setIngredients(new ArrayList<>(Arrays.asList(recipeDetails.getIngredients().split(","))));
+        r.setSteps(new ArrayList<>(Arrays.asList(recipeDetails.getSteps().split(","))));
+
+        r.setSource(recipeDetails.getSource());
+        r.setNotes(recipeDetails.getNotes());
+
+        r.setAverageRanking(0);
+        r.setComments(new ArrayList<>());
+
+        recipeService.saveRecipe(r);
 
         mav.setViewName("/");
 
