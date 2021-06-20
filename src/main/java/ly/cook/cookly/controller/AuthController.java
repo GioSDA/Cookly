@@ -24,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class AuthController {
@@ -153,8 +155,6 @@ public class AuthController {
     public ModelAndView recipeComment(@PathVariable("id") String recipeid) {
         ModelAndView mav = new ModelAndView();
 
-//        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
-
         Recipe r = recipeService.loadRecipeById(recipeid);
 
         if (r != null) {
@@ -217,6 +217,26 @@ public class AuthController {
         }
 
         mav.setViewName("addrecipe");
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/recipe/create", method = RequestMethod.POST)
+    public ModelAndView createRecipe(RecipeDetails recipeDetails, BindingResult bindingResult) {
+        ModelAndView  mav = new ModelAndView();
+
+        mav.addObject("RecipeDetails", new RecipeDetails());
+
+        //Check if user is authenticated
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
+            bindingResult.rejectValue("user", "error.user", "User is not logged in.");
+            return mav;
+        }
+
+
+        mav.setViewName("/");
 
         return mav;
     }

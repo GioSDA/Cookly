@@ -38,7 +38,7 @@ public class Recipe {
     //recipe
     @TextIndexed
     private ArrayList<String> ingredients;
-    private HashMap<String, ArrayList<String>> steps;
+    private ArrayList<String> steps;
 
     //post-recipe
     private String source;
@@ -49,7 +49,7 @@ public class Recipe {
     @TextIndexed
     private ArrayList<Comment> comments;
 
-    public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, int servings, ArrayList<String> ingredients, HashMap<String, ArrayList<String>> steps, String source, String notes) {
+    public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, int servings, ArrayList<String> ingredients, ArrayList<String> steps, String source, String notes) {
         this.title = title;
         this.description = description;
         this.date = date;
