@@ -222,7 +222,7 @@ public class AuthController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
-            mav.setViewName("/home");
+            mav.setViewName("/login");
             return mav;
         }
 
@@ -264,14 +264,23 @@ public class AuthController {
                 return mav;
             }
 
-            File filepath = new File("src/main/resources/static/images/recipes/" + recipeDetails.getTitle() + i);
+            String type;
+            String[] originalName = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
+            if (originalName[originalName.length-1].equals("png")) type = ".png";
+            else if (originalName[originalName.length-1].equals("jpg")) type = ".jpg";
+            else {
+                bindingResult.rejectValue("image", "error.image", "Image type is not set.");
+                return mav;
+            }
+
+            File filepath = new File("src/main/resources/static/images/recipes/" + recipeDetails.getTitle() + i + type);
 
             Files.write(Paths.get(filepath.getPath()), file.getBytes());
 
-            imageService.saveImage(new Image(filepath.getPath()));
+            imageService.saveImage(new Image("/images/recipes/" + recipeDetails.getTitle() + i + type));
 
-            if (i == 0) r.setImages(new ArrayList<>(Collections.singletonList(imageService.loadImageByPath(filepath.getPath()))));
-            else r.getImages().add(imageService.loadImageByPath("/resources/static/images/recipes/" + filepath.getPath()));
+            if (i == 0) r.setImages(new ArrayList<>(Collections.singletonList(imageService.loadImageByPath("/images/recipes/" + recipeDetails.getTitle() + i + type))));
+            else r.getImages().add(imageService.loadImageByPath("/images/recipes/" + recipeDetails.getTitle() + i + type));
         }
 
         r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());

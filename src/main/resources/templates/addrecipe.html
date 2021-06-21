@@ -69,183 +69,178 @@
             </v-stepper-step>
           </v-stepper-header>
           <form method="POST" th:action="@{/recipe/create}" th:object="${RecipeDetails}" enctype="multipart/form-data">
-            </v-stepper-items>
-              <v-stepper-content step="1">
-                Title
-                <v-textarea
-                    type="text"
-                    name="title"
-                    id="inputTitle"
-                    th:field="*{title}"
-                    rows="1"
-                  ></v-textarea>
+            <v-stepper-content step="1">
+              Title
+              <v-textarea
+                  type="text"
+                  name="title"
+                  id="inputTitle"
+                  th:field="*{title}"
+                  rows="1"
+                ></v-textarea>
 
-                <v-spacer></v-spacer>
+              <v-spacer></v-spacer>
 
-                Description
-                <v-textarea
-                type="text"
-                name="description"
-                id="inputDescription"
-                th:field="*{description}">
+              Description
+              <v-textarea
+              type="text"
+              name="description"
+              id="inputDescription"
+              th:field="*{description}">
 
-                </v-textarea>
-        
-                <v-btn
-                  color="primary"
-                  @click="e1 = 2"
-                >
-                  Continue
-                </v-btn>
-        
-                <v-btn text @click="redirect('/')">
-                  Cancel
-                </v-btn>
-              </v-stepper-content>
+              </v-textarea>
+      
+              <v-btn
+                color="primary"
+                @click="e1 = 2"
+              >
+                Continue
+              </v-btn>
+      
+              <v-btn text @click="redirect('/')">
+                Cancel
+              </v-btn>
+            </v-stepper-content>
+            
+            <v-stepper-content step="2">
+              Images
+              <v-file-input
+              type="file"
+                name="images"
+                id="inputImages"
+                th:field="*{images}"
 
-              <v-stepper-content step="2">
-                Images
-                <v-file-input
-                  type="file"
-                  name="images"
-                  id="inputImages"
-                  th:field="*{images}"
+                multiple
+                accept="image/*"
+                label="Images"></v-file-input>
+      
+              <v-btn
+                color="primary"
+                @click="e1 = 3"
+              >
+                Continue
+              </v-btn>
+      
+              <v-btn text @click="redirect('/')">
+                Cancel
+              </v-btn>
+            </v-stepper-content>
 
-                  multiple
-                  accept="image/*"
-                  label="Images"></v-file-input>
-        
-                <v-btn
-                  color="primary"
-                  @click="e1 = 3"
-                >
-                  Continue
-                </v-btn>
-        
-                <v-btn text @click="redirect('/')">
-                  Cancel
-                </v-btn>
-              </v-stepper-content>
+            <v-stepper-content step="3">
+              Notes
+              <v-textarea
+                  type="text"
+                  name="notes"
+                  id="inputNotes"
+                  th:field="*{notes}"
+                ></v-textarea>
 
-              <v-stepper-content step="3">
-                Notes
-                <v-textarea
-                    type="text"
-                    name="notes"
-                    id="inputNotes"
-                    th:field="*{notes}"
-                  ></v-textarea>
+              <v-spacer></v-spacer>
 
-                <v-spacer></v-spacer>
+              Source (Leave blank if none)
+              <v-textarea
+              type="text"
+              name="source"
+              id="inputSource"
+              th:field="*{source}"
+              rows="1">
 
-                Source (Leave blank if none)
-                <v-textarea
-                type="text"
-                name="source"
-                id="inputSource"
-                th:field="*{source}"
-                rows="1">
+              </v-textarea>
+      
+              <v-btn
+                color="primary"
+                @click="e1 = 4"
+              >
+                Continue
+              </v-btn>
+      
+              <v-btn text @click="redirect('/')">
+                Cancel
+              </v-btn>
+            </v-stepper-content>
 
-                </v-textarea>
-        
-                <v-btn
-                  color="primary"
-                  @click="e1 = 4"
-                >
-                  Continue
-                </v-btn>
-        
-                <v-btn text @click="redirect('/')">
-                  Cancel
-                </v-btn>
-              </v-stepper-content>
+            <v-stepper-content step="4">
+              <v-spacer></v-spacer>
+              Hours
+              <v-text-field
+              type="number"
+              name="hours"
+              id="inputHours"
+              th:field="*{hours}">
 
-              <v-stepper-content step="4">
-                <v-spacer></v-spacer>
-                Hours
-                <v-slider
-                name="hours"
-                id="inputHours"
-                th:field="*{hours}"
+              </v-text-field>
 
-                max="24"
-                thumb-label
-                ticks
-              ></v-slider>
+              <v-spacer></v-spacer>
 
-                <v-spacer></v-spacer>
-                Minutes
-                <v-slider
-                  name="minutes"
-                  id="inputMinutes"
-                  th:field="*{minutes}"
+              Minutes
+              <v-text-field
+              type="number"
+              name="minutes"
+              id="inputMinutes"
+              th:field="*{minutes}">
 
-                  max="59"
-                  thumb-label
-                  ticks
-                ></v-slider>
+              </v-text-field>
 
 
-                Servings
-                <v-text-field
-                type="number"
-                name="servings"
-                id="inputServings"
-                th:field="*{servings}">
+              Yield
+              <v-text-field
+              type="text"
+              name="servings"
+              id="inputServings"
+              th:field="*{servings}">
 
-                </v-text-field>
-        
-                <v-btn
-                  color="primary"
-                  @click="e1 = 5"
-                >
-                  Continue
-                </v-btn>
+              </v-text-field>
+      
+              <v-btn
+                color="primary"
+                @click="e1 = 5"
+              >
+                Continue
+              </v-btn>
 
-                <v-btn text @click="redirect('/')">
-                  Cancel
-                </v-btn>
-              </v-stepper-content>
-              <v-stepper-content step="5">
-                Ingredients (comma seperated)
-                <v-textarea
-                type="text"
-                name="ingredients"
-                id="inputIngredients"
-                th:field="*{ingredients}"></v-textarea>
-        
-                <v-btn
-                  color="primary"
-                  @click="e1 = 6"
-                >
-                  Continue
-                </v-btn>
-        
-                <v-btn text @click="redirect('/')">
-                  Cancel
-                </v-btn>
-              </v-stepper-content>
+              <v-btn text @click="redirect('/')">
+                Cancel
+              </v-btn>
+            </v-stepper-content>
+            <v-stepper-content step="5">
+              Ingredients (comma seperated)
+              <v-textarea
+              type="text"
+              name="ingredients"
+              id="inputIngredients"
+              th:field="*{ingredients}"></v-textarea>
+      
+              <v-btn
+                color="primary"
+                @click="e1 = 6"
+              >
+                Continue
+              </v-btn>
+      
+              <v-btn text @click="redirect('/')">
+                Cancel
+              </v-btn>
+            </v-stepper-content>
 
-              <v-stepper-content step="6">
-                Instructions (comma seperated)
-                <v-textarea
-                type="text"
-                name="steps"
-                id="inputSteps"
-                th:field="*{steps}"></v-textarea>
-        
-                <v-btn
-                  color="primary"
-                  type="submit"
-                >
-                  Create Recipe
-                </v-btn>
-        
-                <v-btn text @click="redirect('/')">
-                  Cancel
-                </v-btn>
-              </v-stepper-content>
-            </v-stepper-items>
+            <v-stepper-content step="6">
+              Instructions (comma seperated)
+              <v-textarea
+              type="text"
+              name="steps"
+              id="inputSteps"
+              th:field="*{steps}"></v-textarea>
+      
+              <v-btn
+                color="primary"
+                type="submit"
+              >
+                Create Recipe
+              </v-btn>
+      
+              <v-btn text @click="redirect('/')">
+                Cancel
+              </v-btn>
+            </v-stepper-content>
           </form>
         </v-stepper>
       </v-card>

@@ -20,7 +20,8 @@ public class RecipeDetails {
 
     int minutes;
     int hours;
-    int servings;
+
+    String servings;
 
     String ingredients;
     String steps;

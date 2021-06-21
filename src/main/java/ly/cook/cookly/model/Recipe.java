@@ -33,7 +33,7 @@ public class Recipe {
     private ArrayList<Image> images;
 
     private int time;
-    private int servings;
+    private String servings;
 
     //recipe
     @TextIndexed
@@ -49,7 +49,7 @@ public class Recipe {
     @TextIndexed
     private ArrayList<Comment> comments;
 
-    public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, int servings, ArrayList<String> ingredients, ArrayList<String> steps, String source, String notes) {
+    public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, String servings, ArrayList<String> ingredients, ArrayList<String> steps, String source, String notes) {
         this.title = title;
         this.description = description;
         this.date = date;
