@@ -28,25 +28,31 @@ public class Recipe {
     @TextIndexed(weight = 2)
     private String description;
     private LocalDate date; //when it was last updated
+    @TextIndexed(weight = 2)
+    private User author;
 
     @DBRef
     private ArrayList<Image> images;
 
+    @TextIndexed
     private int time;
+    @TextIndexed
     private String servings;
 
     //recipe
     @TextIndexed
     private ArrayList<String> ingredients;
+    @TextIndexed
     private ArrayList<String> steps;
 
     //post-recipe
+    @TextIndexed
     private String source;
+    @TextIndexed
     private String notes;
     private int averageRanking;
 
     @DBRef
-    @TextIndexed
     private ArrayList<Comment> comments;
 
     public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, String servings, ArrayList<String> ingredients, ArrayList<String> steps, String source, String notes) {
