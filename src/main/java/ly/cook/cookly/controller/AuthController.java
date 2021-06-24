@@ -259,10 +259,6 @@ public class AuthController {
         //Add images to database
         for (int i = 0; i < recipeDetails.getImages().size(); i++) {
             MultipartFile file = recipeDetails.getImages().get(i);
-            if (file.getBytes().length > 10000000) {
-                bindingResult.rejectValue("image", "error.image", "Image is too large.");
-                return mav;
-            }
 
             String type;
             String[] originalName = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
@@ -282,6 +278,9 @@ public class AuthController {
             if (i == 0) r.setImages(new ArrayList<>(Collections.singletonList(imageService.loadImageByPath("/images/recipes/" + recipeDetails.getTitle() + i + type))));
             else r.getImages().add(imageService.loadImageByPath("/images/recipes/" + recipeDetails.getTitle() + i + type));
         }
+
+        r.setAuthor(userDetailsService.findUserByEmail(auth.getName()));
+        r.setAuthorName(r.getAuthor().getName());
 
         r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());
         r.setServings(recipeDetails.getServings());

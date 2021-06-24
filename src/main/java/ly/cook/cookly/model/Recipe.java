@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Getter
 @Setter
@@ -28,8 +27,10 @@ public class Recipe {
     @TextIndexed(weight = 2)
     private String description;
     private LocalDate date; //when it was last updated
-    @TextIndexed(weight = 2)
+    @DBRef
     private User author;
+    @TextIndexed(weight = 2)
+    private String authorName;
 
     @DBRef
     private ArrayList<Image> images;

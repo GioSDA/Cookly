@@ -49,6 +49,8 @@
 
             <v-card-title><td th:text="${result.title}"></td></v-card-title>
 
+            <v-card-description>By <a th:href="|/user/${result.author.id}|"><td th:text="${result.authorName}"></td></a></v-card-description>
+
             <v-card-actions>
               <v-btn
                 type="submit"
