@@ -112,12 +112,14 @@
             <v-stepper-content step="2">
               Images
               <v-file-input
-              type="file"
+                type="file"
                 name="images"
                 id="inputImages"
                 th:field="*{images}"
 
-                :rules="imagrules"
+                counter
+                show-size
+                :rules="inputrules"
                 multiple
                 accept="image/*"
                 label="Images"

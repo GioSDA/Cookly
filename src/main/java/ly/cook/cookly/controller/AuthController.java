@@ -213,7 +213,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/recipe/create", method = RequestMethod.GET)
-    public ModelAndView addRecipe() {
+    public ModelAndView addRecipe(HttpSession session) {
         ModelAndView  mav = new ModelAndView();
 
         mav.addObject("RecipeDetails", new RecipeDetails());
@@ -222,6 +222,7 @@ public class AuthController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
+            session.setAttribute("url_prior_login", "/recipe/create");
             mav.setViewName("/login");
             return mav;
         }

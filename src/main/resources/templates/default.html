@@ -49,7 +49,7 @@
             drawer: false,
             titlrules: [v => v.length > 0 || 'Must input a title!', v => v.length <= 40 || 'Max 40 characters'],
             descrules: [v => v.length > 0 || 'Must input a description!', v => v.length <= 200 || 'Max 200 characters'],
-            imagrules: [v => v.size <= 6000000  || 'Max 6 MB'],
+            imagrules: [v => v.size < 6000000 || 'Max 6 MB'],
             inputrules: [v => v.length > 0 || 'Must input'],
           };
         },
@@ -63,9 +63,6 @@
           }, 
           redirect(url) {
             window.location.href = url;
-          },
-          validate() {
-            this.$refs.form.validate()
           },
         },
       });
