@@ -245,14 +245,20 @@ public class AuthController {
             return mav;
         }
 
-        if (recipeService.loadRecipeByTitle(recipeDetails.getTitle()) != null) {
-            bindingResult.rejectValue("recipe", "error.recipe", "A recipe already exists by that name!");
+        Recipe r = new Recipe();
+
+        if (recipeDetails.getTitle().length() >= 41) {
+            bindingResult.rejectValue("recipe", "error.recipe", "The title is too long.");
             return mav;
         }
 
-        Recipe r = new Recipe();
-
         r.setTitle(recipeDetails.getTitle());
+
+        if (recipeDetails.getDescription().length() >= 200) {
+            bindingResult.rejectValue("recipe", "error.recipe", "The description is too long.");
+            return mav;
+        }
+
         r.setDescription(recipeDetails.getDescription());
         r.setDate(LocalDate.now());
 

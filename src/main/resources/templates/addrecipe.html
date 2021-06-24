@@ -70,26 +70,33 @@
           </v-stepper-header>
           <form method="POST" th:action="@{/recipe/create}" th:object="${RecipeDetails}" enctype="multipart/form-data">
             <v-stepper-content step="1">
-              Title
+              Title (make sure it's unique!)
               <v-textarea
                   type="text"
                   name="title"
                   id="inputTitle"
                   th:field="*{title}"
                   rows="1"
+
+                  counter
+                  :rules="titlrules"
+                  required
                 ></v-textarea>
 
               <v-spacer></v-spacer>
 
               Description
               <v-textarea
-              type="text"
-              name="description"
-              id="inputDescription"
-              th:field="*{description}">
-
+                type="text"
+                name="description"
+                id="inputDescription"
+                th:field="*{description}"
+                
+                counter
+                :rules="descrules"
+                required>
               </v-textarea>
-      
+
               <v-btn
                 color="primary"
                 @click="e1 = 2"
@@ -110,15 +117,24 @@
                 id="inputImages"
                 th:field="*{images}"
 
+                :rules="imagrules"
                 multiple
                 accept="image/*"
-                label="Images"></v-file-input>
+                label="Images"
+                required></v-file-input>
       
               <v-btn
                 color="primary"
                 @click="e1 = 3"
               >
                 Continue
+              </v-btn>
+                    
+              <v-btn
+                color="secondary"
+                @click="e1 = 1"
+              >
+                Back
               </v-btn>
       
               <v-btn text @click="redirect('/')">
@@ -133,6 +149,9 @@
                   name="notes"
                   id="inputNotes"
                   th:field="*{notes}"
+
+                  :rules="inputrules"
+                  required
                 ></v-textarea>
 
               <v-spacer></v-spacer>
@@ -153,6 +172,13 @@
               >
                 Continue
               </v-btn>
+                    
+              <v-btn
+                color="secondary"
+                @click="e1 = 2"
+              >
+                Back
+              </v-btn>
       
               <v-btn text @click="redirect('/')">
                 Cancel
@@ -166,7 +192,10 @@
               type="number"
               name="hours"
               id="inputHours"
-              th:field="*{hours}">
+              th:field="*{hours}"
+              
+              :rules="inputRules"
+              required>
 
               </v-text-field>
 
@@ -177,7 +206,10 @@
               type="number"
               name="minutes"
               id="inputMinutes"
-              th:field="*{minutes}">
+              th:field="*{minutes}"
+              
+              :rules="inputRules"
+              required>
 
               </v-text-field>
 
@@ -187,7 +219,10 @@
               type="text"
               name="servings"
               id="inputServings"
-              th:field="*{servings}">
+              th:field="*{servings}"
+
+              :rules="inputRules"
+              required>
 
               </v-text-field>
       
@@ -196,6 +231,13 @@
                 @click="e1 = 5"
               >
                 Continue
+              </v-btn>
+                    
+              <v-btn
+                color="secondary"
+                @click="e1 = 3"
+              >
+                Back
               </v-btn>
 
               <v-btn text @click="redirect('/')">
@@ -208,13 +250,23 @@
               type="text"
               name="ingredients"
               id="inputIngredients"
-              th:field="*{ingredients}"></v-textarea>
+              th:field="*{ingredients}"
+              
+              :rules="inputRules"
+              required></v-textarea>
       
               <v-btn
                 color="primary"
                 @click="e1 = 6"
               >
                 Continue
+              </v-btn>
+                    
+              <v-btn
+                color="secondary"
+                @click="e1 = 4"
+              >
+                Back
               </v-btn>
       
               <v-btn text @click="redirect('/')">
@@ -228,13 +280,25 @@
               type="text"
               name="steps"
               id="inputSteps"
-              th:field="*{steps}"></v-textarea>
+              th:field="*{steps}"
+              
+              :rules="inputRules"
+              required></v-textarea>
       
               <v-btn
                 color="primary"
                 type="submit"
+
+                :disabled="invalid"
               >
                 Create Recipe
+              </v-btn>
+                    
+              <v-btn
+                color="secondary"
+                @click="e1 = 5"
+              >
+                Back
               </v-btn>
       
               <v-btn text @click="redirect('/')">
