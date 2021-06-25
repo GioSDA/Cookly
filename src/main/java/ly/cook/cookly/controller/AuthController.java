@@ -32,10 +32,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class AuthController {
@@ -145,6 +142,7 @@ public class AuthController {
     @RequestMapping(value = {"/recipe/{id}"}, method = RequestMethod.GET)
     public ModelAndView recipe(@PathVariable("id") String recipeid) {
         ModelAndView mav = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 //        Recipe re = new Recipe(0, "Test Chocolate Cake", "The testiest chocolate cake around", new ArrayList<Image>(imageRepository.findAll()), 1, 1, new ArrayList<String>(Arrays.asList("1 pound of Test")), steps, "Famous Cookbook", "This is a test", 100, new ArrayList<Comment>(Arrays.asList(commentRepository.findById(0).get())));
 
@@ -152,8 +150,15 @@ public class AuthController {
 
         if (r != null) {
             mav.setViewName("recipe");
+
             mav.addObject("recipe", recipeService.loadRecipeById(recipeid));
             mav.addObject("CommentDetails", new CommentDetails());
+
+            String fullname = "";
+            User u = userDetailsService.findUserByEmail(auth.getName());
+            if (u != null)
+                fullname = userDetailsService.findUserByEmail(auth.getName()).getName();
+            mav.addObject("fullname", fullname);
         } else {
             mav.setStatus(HttpStatus.NOT_FOUND);
         }

@@ -122,8 +122,8 @@
         <v-card class="my-5">
           <v-list shaped>
             <v-subheader> <v-icon dense class="mr-2"> mdi-food-apple </v-icon> INGREDIENTS</v-subheader>
-            <tr th:each="ingredient : ${recipe.ingredients}">
-              <v-list-item th:text="${ingredient}"></v-list-item>
+            <tr th:each="ingredient, iter : ${recipe.ingredients}">
+              <v-list-item th:text="${iter.index+1 + '. ' + ingredient}"></v-list-item>
             </tr>
           </v-list>
         </v-card>
@@ -143,7 +143,7 @@
         >
           <v-card>
               <v-card-title>
-                <div sec:authorize="isAuthenticated()"> You're signed in as <span sec:authentication="name">.</span></div>
+                <div sec:authorize="isAuthenticated()"> You're signed in as <span th:text="${fullname}">.</span></div>
                 <div sec:authorize="isAnonymous()"> You need to sign in to comment.</div>
               </v-card-title>
               <div
