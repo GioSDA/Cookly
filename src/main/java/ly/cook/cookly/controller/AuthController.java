@@ -1,7 +1,6 @@
 package ly.cook.cookly.controller;
 
 import com.mongodb.client.MongoClients;
-import ly.cook.cookly.CooklyApplication;
 import ly.cook.cookly.model.*;
 import ly.cook.cookly.service.CommentService;
 import ly.cook.cookly.service.CustomUserDetailsService;
@@ -27,9 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
