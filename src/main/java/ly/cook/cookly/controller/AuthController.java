@@ -253,6 +253,9 @@ public class AuthController {
         if (recipeDetails.getTitle().length() >= 41) {
             bindingResult.rejectValue("recipe", "error.recipe", "The title is too long.");
             return mav;
+        } else if (recipeService.loadRecipeByTitle(recipeDetails.getTitle()) != null) {
+            bindingResult.rejectValue("recipe", "error.recipe", "A recipe already exists with this title.");
+            return mav;
         }
 
         r.setTitle(recipeDetails.getTitle());
@@ -288,8 +291,9 @@ public class AuthController {
             else r.getImages().add(imageService.loadImageByPath("/images/recipes/" + recipeDetails.getTitle() + i + type));
         }
 
-        r.setAuthor(userDetailsService.findUserByEmail(auth.getName()));
-        r.setAuthorName(r.getAuthor().getName());
+        User u = userDetailsService.findUserByEmail(auth.getName());
+        r.setAuthor(u);
+        r.setAuthorName(u.getName());
 
         r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());
         r.setServings(recipeDetails.getServings());
@@ -304,6 +308,9 @@ public class AuthController {
         r.setComments(new ArrayList<>());
 
         recipeService.saveRecipe(r);
+
+        u.getRecipes().add(recipeService.loadRecipeByTitle(recipeDetails.getTitle()));
+        userDetailsService.saveUser(u);
 
         mav.setViewName("/home");
 
