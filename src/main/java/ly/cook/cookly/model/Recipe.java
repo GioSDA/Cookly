@@ -27,7 +27,6 @@ public class Recipe {
     @TextIndexed(weight = 2)
     private String description;
     private LocalDate date; //when it was last updated
-    private User author;
     @TextIndexed(weight = 2)
     private String authorName;
 

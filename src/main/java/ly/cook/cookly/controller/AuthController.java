@@ -292,7 +292,6 @@ public class AuthController {
         }
 
         User u = userDetailsService.findUserByEmail(auth.getName());
-        r.setAuthor(u);
         r.setAuthorName(u.getName());
 
         r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());
