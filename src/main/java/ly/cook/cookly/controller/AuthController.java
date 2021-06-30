@@ -316,4 +316,16 @@ public class AuthController {
         return mav;
     }
 
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ModelAndView createRecipe(@PathVariable String id, BindingResult bindingResult) {
+        ModelAndView mav = new ModelAndView();
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (userDetailsService.findUserByEmail(auth.getName()).getId().equals(id)) mav.addObject("acc_owner", true);
+        else mav.addObject("acc_owner", false);
+
+        mav.setViewName("/user");
+        return mav;
+    }
+
 }
