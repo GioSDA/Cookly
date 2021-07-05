@@ -322,8 +322,12 @@ public class AuthController {
         ModelAndView mav = new ModelAndView();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (userDetailsService.findUserByEmail(auth.getName()).getId().equals(id)) mav.addObject("acc_owner", true);
+        mav.addObject("user", userDetailsService.findUserById(id));
+
+        if (userDetailsService.findUserByEmail(auth.getName()) != null && userDetailsService.findUserByEmail(auth.getName()).getId().equals(id)) mav.addObject("acc_owner", true);
         else mav.addObject("acc_owner", false);
+
+
 
         mav.setViewName("/user");
         return mav;
