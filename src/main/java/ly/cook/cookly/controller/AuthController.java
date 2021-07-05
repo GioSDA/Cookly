@@ -293,6 +293,7 @@ public class AuthController {
 
         User u = userDetailsService.findUserByEmail(auth.getName());
         r.setAuthorName(u.getName());
+        r.setAuthorName(u.getId());
 
         r.setTime(recipeDetails.getHours() * 60 + recipeDetails.getMinutes());
         r.setServings(recipeDetails.getServings());
@@ -317,7 +318,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ModelAndView createRecipe(@PathVariable String id, BindingResult bindingResult) {
+    public ModelAndView userView(@PathVariable String id) {
         ModelAndView mav = new ModelAndView();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

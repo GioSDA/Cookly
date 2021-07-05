@@ -48,7 +48,7 @@
             </v-card-text>
 
             <v-card-title><td th:text="${result.title}"></td></v-card-title>
-            <v-card-subtitle>By <a th:href="|/user/${result.author.id}|"><td th:text="${result.authorName}"></td></a></v-card-subtitle>
+            <v-card-subtitle>By <a th:href="|/user/${result.authorId}|"><td th:text="${result.authorName}"></td></a></v-card-subtitle>
 
             <v-card-actions>
               <v-btn

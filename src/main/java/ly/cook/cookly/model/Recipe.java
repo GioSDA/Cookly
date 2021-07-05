@@ -29,6 +29,7 @@ public class Recipe {
     private LocalDate date; //when it was last updated
     @TextIndexed(weight = 2)
     private String authorName;
+    private String authorId;
 
     @DBRef
     private ArrayList<Image> images;
