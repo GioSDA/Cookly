@@ -6,6 +6,9 @@ import ly.cook.cookly.service.CommentService;
 import ly.cook.cookly.service.CustomUserDetailsService;
 import ly.cook.cookly.service.ImageService;
 import ly.cook.cookly.service.RecipeService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,8 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -307,6 +312,12 @@ public class AuthController {
         r.setAverageRanking(0);
         r.setComments(new ArrayList<>());
 
+        try {
+            r.setNutrients(getNutrients(r.getIngredients()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         recipeService.saveRecipe(r);
 
         u.getRecipes().add(recipeService.loadRecipeByTitle(recipeDetails.getTitle()));
@@ -331,6 +342,91 @@ public class AuthController {
 
         mav.setViewName("/user");
         return mav;
+    }
+
+    public Nutrients getNutrients(List<String> ingredients) throws IOException, JSONException {
+        URL url = new URL("https://api.edamam.com/nutrition-details?app_id=4f197a6d&app_key=ca9a70e6e663299320cc82fe852bbc9f&");
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setRequestProperty("Accept", "application/json");
+
+        String app_id = "4f197a6d";
+        String app_key = "ca9a70e6e663299320cc82fe852bbc9f";
+
+        con.setRequestProperty("app_id", app_id);
+        con.setRequestProperty("app_key", app_key);
+        con.setDoOutput(true);
+
+
+        StringBuilder inputStringSB = new StringBuilder();
+        inputStringSB.append("{ \"ingr\": [");
+        for (String ingr : ingredients) {
+            inputStringSB.append('\"');
+            inputStringSB.append(ingr);
+            inputStringSB.append("\",");
+        }
+
+        inputStringSB.append("\"\"");
+
+        String inputString = inputStringSB.toString();
+
+        try(OutputStream os = con.getOutputStream()) {
+            byte[] input = inputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+
+        String response;
+
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
+            StringBuilder responseSB = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                responseSB.append(responseLine.trim());
+            }
+
+            response = responseSB.toString();
+        }
+
+        Nutrients nutrients = new Nutrients();
+
+        JSONObject obj = new JSONObject(response);
+        nutrients.setCalories(obj.getDouble("calories"));
+        nutrients.setGlycemicIndex(obj.getDouble("glycemicIndex"));
+        nutrients.setTotalWeight(obj.getDouble("totalWeight"));
+
+        JSONArray arr = obj.getJSONArray("dietLabels");
+        List<String> dietLabels = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) dietLabels.add(arr.getString(i));
+        nutrients.setDietLabels(dietLabels);
+
+        arr = obj.getJSONArray("healthLabels");
+        List<String> healthLabels = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) healthLabels.add(arr.getString(i));
+        nutrients.setHealthLabels(healthLabels);
+
+        arr = obj.getJSONArray("cautions");
+        List<String> cautions = new ArrayList<>();
+        for (int i = 0; i < arr.length(); i++) cautions.add(arr.getString(i));
+        nutrients.setCautions(cautions);
+
+        arr = obj.getJSONArray("totalNutrients");
+        HashMap<String, String> totalNutrients = new HashMap<>();
+        for (int i = 0; i < arr.length(); i++) {
+            JSONArray nutrient = arr.getJSONArray(i);
+            totalNutrients.put(nutrient.getString(0), nutrient.getString(1) + ", " + nutrient.getString(2));
+        }
+        nutrients.setTotalNutrients(totalNutrients);
+
+        arr = obj.getJSONArray("totalDaily");
+        HashMap<String, String> totalDaily = new HashMap<>();
+        for (int i = 0; i < arr.length(); i++) {
+            JSONArray nutrient = arr.getJSONArray(i);
+            totalDaily.put(nutrient.getString(0), nutrient.getString(1) + ", " + nutrient.getString(2));
+        }
+        nutrients.setTotalNutrients(totalDaily);
+
+        return nutrients;
     }
 
 }

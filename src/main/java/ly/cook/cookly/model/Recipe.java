@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -52,21 +53,10 @@ public class Recipe {
     private String notes;
     private int averageRanking;
 
+    private Nutrients nutrients;
+
     @DBRef
     private ArrayList<Comment> comments;
-
-    public Recipe(String title, String description, LocalDate date, ArrayList<Image> images, int time, String servings, ArrayList<String> ingredients, ArrayList<String> steps, String source, String notes) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.images = images;
-        this.time = time;
-        this.servings = servings;
-        this.ingredients = ingredients;
-        this.steps = steps;
-        this.source = source;
-        this.notes = notes;
-    }
 
     public void calcAverageRankings() {
         int ranking = 0;
