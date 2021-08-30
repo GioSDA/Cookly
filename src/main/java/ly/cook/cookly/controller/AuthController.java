@@ -250,6 +250,7 @@ public class AuthController {
 
         if (!auth.isAuthenticated() || userDetailsService.findUserByEmail(auth.getName()) == null) {
             bindingResult.rejectValue("user", "error.user", "User is not logged in.");
+            mav.setViewName("/login");
             return mav;
         }
 
@@ -312,11 +313,11 @@ public class AuthController {
         r.setAverageRanking(0);
         r.setComments(new ArrayList<>());
 
-        try {
-            r.setNutrients(getNutrients(r.getIngredients()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            r.setNutrients(getNutrients(r.getIngredients()));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
         recipeService.saveRecipe(r);
 
@@ -377,6 +378,8 @@ public class AuthController {
         }
 
         String response;
+
+
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder responseSB = new StringBuilder();

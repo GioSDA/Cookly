@@ -49,6 +49,7 @@
             drawer: false,
             titlrules: [v => v.length > 0 || 'Must input a title!', v => v.length <= 40 || 'Max 40 characters'],
             descrules: [v => v.length > 0 || 'Must input a description!', v => v.length <= 200 || 'Max 200 characters'],
+            descrules: [v => v.length > 0 || 'Must input a description!', v => isNan(v) || 'Must be a number!'],
             inputrules: [v => v.length > 0 || 'Must input'],
           };
         },

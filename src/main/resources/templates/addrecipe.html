@@ -196,7 +196,7 @@
               id="inputHours"
               th:field="*{hours}"
               
-              :rules="inputRules"
+              :rules="numRules"
               required>
 
               </v-text-field>
@@ -210,7 +210,7 @@
               id="inputMinutes"
               th:field="*{minutes}"
               
-              :rules="inputRules"
+              :rules="numRules"
               required>
 
               </v-text-field>
@@ -223,7 +223,7 @@
               id="inputServings"
               th:field="*{servings}"
 
-              :rules="inputRules"
+              :rules="numRules"
               required>
 
               </v-text-field>
