@@ -330,19 +330,32 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ModelAndView userView(@PathVariable String id) {
+    public ModelAndView userView(@PathVariable String id, HttpSession session) {
         ModelAndView mav = new ModelAndView();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        mav.addObject("user", userDetailsService.findUserById(id));
 
-        if (userDetailsService.findUserByEmail(auth.getName()) != null && userDetailsService.findUserByEmail(auth.getName()).getId().equals(id)) mav.addObject("acc_owner", true);
-        else mav.addObject("acc_owner", false);
+        if (id.equals("me")) {
+            if (userDetailsService.findUserByEmail(auth.getName()) == null) {
+                session.setAttribute("url_prior_login", "/user/me");
+                mav.setViewName("/login");
+            } else {
+                mav.addObject("acc_owner", true);
+                mav.addObject("user", userDetailsService.findUserByEmail(auth.getName()));
+                mav.setViewName("/user");
+            }
+        } else {
+            mav.addObject("user", userDetailsService.findUserById(id));
 
+            if (userDetailsService.findUserByEmail(auth.getName()) != null && userDetailsService.findUserByEmail(auth.getName()).getId().equals(id))
+                mav.addObject("acc_owner", true);
+            else mav.addObject("acc_owner", false);
 
+            mav.setViewName("/user");
+        }
 
-        mav.setViewName("/user");
         return mav;
+
     }
 
     public Nutrients getNutrients(List<String> ingredients) throws IOException, JSONException {
